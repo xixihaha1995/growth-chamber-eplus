@@ -14,7 +14,7 @@ Version,
 !-   ===========  ALL OBJECTS IN CLASS: SIMULATIONCONTROL ===========
 
 SimulationControl,
-    No,                      !- Do Zone Sizing Calculation
+    Yes,                     !- Do Zone Sizing Calculation
     No,                      !- Do System Sizing Calculation
     No,                      !- Do Plant Sizing Calculation
     Yes,                     !- Run Simulation for Sizing Periods
@@ -50,6 +50,66 @@ Site:Location,
     0,                       !- Longitude {deg}
     0,                       !- Time Zone {hr}
     0;                       !- Elevation {m}
+
+
+!-   ===========  ALL OBJECTS IN CLASS: SIZINGPERIOD:DESIGNDAY ===========
+
+SizingPeriod:DesignDay,
+    CHICAGO_IL_USA Annual Heating 99% Design Conditions DB,  !- Name
+    1,                       !- Month
+    21,                      !- Day of Month
+    WinterDesignDay,         !- Day Type
+    -17.3,                   !- Maximum Dry-Bulb Temperature {C}
+    0.0,                     !- Daily Dry-Bulb Temperature Range {deltaC}
+    ,                        !- Dry-Bulb Temperature Range Modifier Type
+    ,                        !- Dry-Bulb Temperature Range Modifier Day Schedule Name
+    Wetbulb,                 !- Humidity Condition Type
+    -17.3,                   !- Wetbulb or DewPoint at Maximum Dry-Bulb {C}
+    ,                        !- Humidity Condition Day Schedule Name
+    ,                        !- Humidity Ratio at Maximum Dry-Bulb {kgWater/kgDryAir}
+    ,                        !- Enthalpy at Maximum Dry-Bulb {J/kg}
+    ,                        !- Daily Wet-Bulb Temperature Range {deltaC}
+    99063.,                  !- Barometric Pressure {Pa}
+    4.9,                     !- Wind Speed {m/s}
+    270,                     !- Wind Direction {deg}
+    No,                      !- Rain Indicator
+    No,                      !- Snow Indicator
+    No,                      !- Daylight Saving Time Indicator
+    ASHRAEClearSky,          !- Solar Model Indicator
+    ,                        !- Beam Solar Day Schedule Name
+    ,                        !- Diffuse Solar Day Schedule Name
+    ,                        !- ASHRAE Clear Sky Optical Depth for Beam Irradiance (taub) {dimensionless}
+    ,                        !- ASHRAE Clear Sky Optical Depth for Diffuse Irradiance (taud) {dimensionless}
+    0.0;                     !- Sky Clearness
+
+! CHICAGO_IL_USA Annual Cooling 1% Design Conditions, MaxDB=  31.5°C MCWB=  23.0°C
+SizingPeriod:DesignDay,
+    CHICAGO_IL_USA Annual Cooling 1% Design Conditions DB/MCWB,  !- Name
+    7,                       !- Month
+    21,                      !- Day of Month
+    SummerDesignDay,         !- Day Type
+    31.5,                    !- Maximum Dry-Bulb Temperature {C}
+    10.7,                    !- Daily Dry-Bulb Temperature Range {deltaC}
+    ,                        !- Dry-Bulb Temperature Range Modifier Type
+    ,                        !- Dry-Bulb Temperature Range Modifier Day Schedule Name
+    Wetbulb,                 !- Humidity Condition Type
+    23.0,                    !- Wetbulb or DewPoint at Maximum Dry-Bulb {C}
+    ,                        !- Humidity Condition Day Schedule Name
+    ,                        !- Humidity Ratio at Maximum Dry-Bulb {kgWater/kgDryAir}
+    ,                        !- Enthalpy at Maximum Dry-Bulb {J/kg}
+    ,                        !- Daily Wet-Bulb Temperature Range {deltaC}
+    99063.,                  !- Barometric Pressure {Pa}
+    5.3,                     !- Wind Speed {m/s}
+    230,                     !- Wind Direction {deg}
+    No,                      !- Rain Indicator
+    No,                      !- Snow Indicator
+    No,                      !- Daylight Saving Time Indicator
+    ASHRAEClearSky,          !- Solar Model Indicator
+    ,                        !- Beam Solar Day Schedule Name
+    ,                        !- Diffuse Solar Day Schedule Name
+    ,                        !- ASHRAE Clear Sky Optical Depth for Beam Irradiance (taub) {dimensionless}
+    ,                        !- ASHRAE Clear Sky Optical Depth for Diffuse Irradiance (taud) {dimensionless}
+    1.0;                     !- Sky Clearness
 
 
 !-   ===========  ALL OBJECTS IN CLASS: RUNPERIOD ===========
@@ -2433,6 +2493,22 @@ Schedule:Compact,
     Until: 24:00,            !- Field 7
     0;                       !- Field 8
 
+Schedule:Compact,
+    humidifying Relative Humidity Sch,  !- Name
+    Humidity,                !- Schedule Type Limits Name
+    Through: 12/31,          !- Field 1
+    For: Alldays,            !- Field 2
+    Until: 24:00,            !- Field 3
+    67.0;                    !- Field 4
+
+Schedule:Compact,
+    dehumidifying Relative Humidity Sch,  !- Name
+    Humidity,                !- Schedule Type Limits Name
+    Through: 12/31,          !- Field 1
+    For: Alldays,            !- Field 2
+    Until: 24:00,            !- Field 3
+    73.0;                    !- Field 4
+
 
 !-   ===========  ALL OBJECTS IN CLASS: SCHEDULE:CONSTANT ===========
 
@@ -2722,6 +2798,14 @@ Material,
 !-   ===========  ALL OBJECTS IN CLASS: MATERIAL:NOMASS ===========
 
 Material:NoMass,
+    R24ft2-F-h-BtuR4.2m2-K/W,!- Name
+    Smooth,                  !- Roughness
+    4.2,                     !- Thermal Resistance {m2-K/W}
+    0.9,                     !- Thermal Absorptance
+    0.7,                     !- Solar Absorptance
+    0.7;                     !- Visible Absorptance
+
+Material:NoMass,
     CP02 CARPET PAD,         !- Name
     Smooth,                  !- Roughness
     0.1,                     !- Thermal Resistance {m2-K/W}
@@ -2905,6 +2989,10 @@ WindowMaterial:Blind,
 
 
 !-   ===========  ALL OBJECTS IN CLASS: CONSTRUCTION ===========
+
+Construction,
+    UL Class 1 Foam Insulation,  !- Name
+    R24ft2-F-h-BtuR4.2m2-K/W;!- Outside Layer
 
 Construction,
     ASHRAE 189.1-2009 ExtRoof IEAD ClimateZone 1,  !- Name
@@ -3104,7 +3192,7 @@ Zone,
 BuildingSurface:Detailed,
     Ceiling,                 !- Name
     Roof,                    !- Surface Type
-    ASHRAE 189.1-2009 ExtRoof IEAD ClimateZone 2-5,  !- Construction Name
+    UL Class 1 Foam Insulation,  !- Construction Name
     Thermal Zone 1,          !- Zone Name
     Space 101,               !- Space Name
     Adiabatic,               !- Outside Boundary Condition
@@ -3129,7 +3217,7 @@ BuildingSurface:Detailed,
 BuildingSurface:Detailed,
     Floor,                   !- Name
     Floor,                   !- Surface Type
-    ExtSlabCarpet 4in ClimateZone 1-8,  !- Construction Name
+    Interior Floor,          !- Construction Name
     Thermal Zone 1,          !- Zone Name
     Space 101,               !- Space Name
     Adiabatic,               !- Outside Boundary Condition
@@ -3154,7 +3242,7 @@ BuildingSurface:Detailed,
 BuildingSurface:Detailed,
     Surface 2,               !- Name
     Wall,                    !- Surface Type
-    ASHRAE 189.1-2009 ExtWall Mass ClimateZone 5,  !- Construction Name
+    UL Class 1 Foam Insulation,  !- Construction Name
     Thermal Zone 1,          !- Zone Name
     Space 101,               !- Space Name
     Adiabatic,               !- Outside Boundary Condition
@@ -3179,7 +3267,7 @@ BuildingSurface:Detailed,
 BuildingSurface:Detailed,
     Surface 3,               !- Name
     Wall,                    !- Surface Type
-    ASHRAE 189.1-2009 ExtWall Mass ClimateZone 5,  !- Construction Name
+    UL Class 1 Foam Insulation,  !- Construction Name
     Thermal Zone 1,          !- Zone Name
     Space 101,               !- Space Name
     Adiabatic,               !- Outside Boundary Condition
@@ -3204,7 +3292,7 @@ BuildingSurface:Detailed,
 BuildingSurface:Detailed,
     Surface 4,               !- Name
     Wall,                    !- Surface Type
-    ASHRAE 189.1-2009 ExtWall Mass ClimateZone 5,  !- Construction Name
+    UL Class 1 Foam Insulation,  !- Construction Name
     Thermal Zone 1,          !- Zone Name
     Space 101,               !- Space Name
     Adiabatic,               !- Outside Boundary Condition
@@ -3229,7 +3317,7 @@ BuildingSurface:Detailed,
 BuildingSurface:Detailed,
     Surface 5,               !- Name
     Wall,                    !- Surface Type
-    ASHRAE 189.1-2009 ExtWall Mass ClimateZone 5,  !- Construction Name
+    UL Class 1 Foam Insulation,  !- Construction Name
     Thermal Zone 1,          !- Zone Name
     Space 101,               !- Space Name
     Adiabatic,               !- Outside Boundary Condition
@@ -3310,7 +3398,7 @@ IndoorLivingWall,
     Always On Continuous,    !- LED Intensity Schedule Name
     ,                        !- Daylighting Control Name
     ,                        !- LED-Daylight Targeted Lighting Intensity Schedule Name
-    30,                      !- Total Leaf Area {m2}
+    20,                      !- Total Leaf Area {m2}
     65,                      !- LED Nominal Intensity {umol/m2-s}
     1280,                    !- LED Nominal Power {W}
     0.6;                     !- Radiant Fraction of LED Lights
@@ -3338,44 +3426,64 @@ ZoneInfiltration:DesignFlowRate,
 HVACTemplate:Thermostat,
     gc temperature sp,       !- Name
     ,                        !- Heating Setpoint Schedule Name
-    20,                      !- Constant Heating Setpoint {C}
+    15,                      !- Constant Heating Setpoint {C}
     ,                        !- Cooling Setpoint Schedule Name
-    20;                      !- Constant Cooling Setpoint {C}
+    35;                      !- Constant Cooling Setpoint {C}
 
 
-!-   ===========  ALL OBJECTS IN CLASS: HVACTEMPLATE:ZONE:IDEALLOADSAIRSYSTEM ===========
+!-   ===========  ALL OBJECTS IN CLASS: HVACTEMPLATE:ZONE:PTAC ===========
 
-HVACTemplate:Zone:IdealLoadsAirSystem,
+HVACTemplate:Zone:PTAC,
     Thermal Zone 1,          !- Zone Name
     gc temperature sp,       !- Template Thermostat Name
-    ,                        !- System Availability Schedule Name
-    50,                      !- Maximum Heating Supply Air Temperature {C}
-    13,                      !- Minimum Cooling Supply Air Temperature {C}
-    0.0156,                  !- Maximum Heating Supply Air Humidity Ratio {kgWater/kgDryAir}
-    0.0077,                  !- Minimum Cooling Supply Air Humidity Ratio {kgWater/kgDryAir}
-    NoLimit,                 !- Heating Limit
-    ,                        !- Maximum Heating Air Flow Rate {m3/s}
-    ,                        !- Maximum Sensible Heating Capacity {W}
-    NoLimit,                 !- Cooling Limit
-    ,                        !- Maximum Cooling Air Flow Rate {m3/s}
-    ,                        !- Maximum Total Cooling Capacity {W}
-    ,                        !- Heating Availability Schedule Name
-    ,                        !- Cooling Availability Schedule Name
-    Humidistat,              !- Dehumidification Control Type
-    0.7,                     !- Cooling Sensible Heat Ratio {dimensionless}
-    75,                      !- Dehumidification Setpoint {percent}
-    Humidistat,              !- Humidification Control Type
-    75,                      !- Humidification Setpoint {percent}
-    None,                    !- Outdoor Air Method
-    0.00944,                 !- Outdoor Air Flow Rate per Person {m3/s}
+    autosize,                !- Cooling Supply Air Flow Rate {m3/s}
+    autosize,                !- Heating Supply Air Flow Rate {m3/s}
+    ,                        !- No Load Supply Air Flow Rate {m3/s}
+    ,                        !- Zone Heating Sizing Factor
+    ,                        !- Zone Cooling Sizing Factor
+    DetailedSpecification,   !- Outdoor Air Method
+    ,                        !- Outdoor Air Flow Rate per Person {m3/s}
     ,                        !- Outdoor Air Flow Rate per Zone Floor Area {m3/s-m2}
-    ,                        !- Outdoor Air Flow Rate per Zone {m3/s}
-    ,                        !- Design Specification Outdoor Air Object Name
-    None,                    !- Demand Controlled Ventilation Type
-    NoEconomizer,            !- Outdoor Air Economizer Type
-    None,                    !- Heat Recovery Type
-    0.7,                     !- Sensible Heat Recovery Effectiveness {dimensionless}
-    0.65;                    !- Latent Heat Recovery Effectiveness {dimensionless}
+    0,                       !- Outdoor Air Flow Rate per Zone {m3/s}
+    ,                        !- System Availability Schedule Name
+    ,                        !- Supply Fan Operating Mode Schedule Name
+    DrawThrough,             !- Supply Fan Placement
+    0.7,                     !- Supply Fan Total Efficiency
+    75,                      !- Supply Fan Delta Pressure {Pa}
+    0.9,                     !- Supply Fan Motor Efficiency
+    SingleSpeedDX,           !- Cooling Coil Type
+    ,                        !- Cooling Coil Availability Schedule Name
+    autosize,                !- Cooling Coil Gross Rated Total Capacity {W}
+    autosize,                !- Cooling Coil Gross Rated Sensible Heat Ratio
+    3,                       !- Cooling Coil Gross Rated Cooling COP {W/W}
+    Electric,                !- Heating Coil Type
+    ,                        !- Heating Coil Availability Schedule Name
+    2000,                    !- Heating Coil Capacity {W}
+    0.8,                     !- Gas Heating Coil Efficiency
+    ,                        !- Gas Heating Coil Parasitic Electric Load {W}
+    ,                        !- Dedicated Outdoor Air System Name
+    SupplyAirTemperature,    !- Zone Cooling Design Supply Air Temperature Input Method
+    14,                      !- Zone Cooling Design Supply Air Temperature {C}
+    11.11,                   !- Zone Cooling Design Supply Air Temperature Difference {deltaC}
+    SupplyAirTemperature,    !- Zone Heating Design Supply Air Temperature Input Method
+    50,                      !- Zone Heating Design Supply Air Temperature {C}
+    30,                      !- Zone Heating Design Supply Air Temperature Difference {deltaC}
+    dsoa,                    !- Design Specification Outdoor Air Object Name
+    ,                        !- Design Specification Zone Air Distribution Object Name
+    None,                    !- Baseboard Heating Type
+    ,                        !- Baseboard Heating Availability Schedule Name
+    autosize,                !- Baseboard Heating Capacity {W}
+    None;                    !- Capacity Control Method
+
+
+!-   ===========  ALL OBJECTS IN CLASS: DESIGNSPECIFICATION:OUTDOORAIR ===========
+
+DesignSpecification:OutdoorAir,
+    dsoa,                    !- Name
+    Flow/Zone,               !- Outdoor Air Method
+    ,                        !- Outdoor Air Flow per Person {m3/s-person}
+    ,                        !- Outdoor Air Flow per Zone Floor Area {m3/s-m2}
+    0.047;                   !- Outdoor Air Flow per Zone {m3/s}
 
 
 !-   ===========  ALL OBJECTS IN CLASS: SIZING:PARAMETERS ===========
@@ -3383,6 +3491,77 @@ HVACTemplate:Zone:IdealLoadsAirSystem,
 Sizing:Parameters,
     1.25,                    !- Heating Sizing Factor
     1.15;                    !- Cooling Sizing Factor
+
+
+!-   ===========  ALL OBJECTS IN CLASS: ZONECONTROL:HUMIDISTAT ===========
+
+ZoneControl:Humidistat,
+    humidity sp,             !- Name
+    Thermal Zone 1,          !- Zone Name
+    humidifying Relative Humidity Sch,  !- Humidifying Relative Humidity Setpoint Schedule Name
+    dehumidifying Relative Humidity Sch;  !- Dehumidifying Relative Humidity Setpoint Schedule Name
+
+
+!-   ===========  ALL OBJECTS IN CLASS: HUMIDIFIER:STEAM:ELECTRIC ===========
+
+Humidifier:Steam:Electric,
+    humidifier,              !- Name
+    ,                        !- Availability Schedule Name
+    0.00000222,              !- Rated Capacity {m3/s}
+    autosize,                !- Rated Power {W}
+    ,                        !- Rated Fan Power {W}
+    ,                        !- Standby Power {W}
+    humidifier air inlet,    !- Air Inlet Node Name
+    humidifier outlet;       !- Air Outlet Node Name
+
+
+!-   ===========  ALL OBJECTS IN CLASS: DEHUMIDIFIER:DESICCANT:NOFANS ===========
+
+Fan:VariableVolume,
+    drier regen fan,     !- Name
+    ,    !- Availability Schedule Name
+    0.7,                     !- Fan Total Efficiency
+    600.0,                   !- Pressure Rise {Pa}
+    1.3,                     !- Maximum Flow Rate {m3/s}
+    FixedFlowRate,           !- Fan Power Minimum Flow Rate Input Method
+    ,                        !- Fan Power Minimum Flow Fraction
+    0.0,                     !- Fan Power Minimum Air Flow Rate {m3/s}
+    0.9,                     !- Motor Efficiency
+    1.0,                     !- Motor In Airstream Fraction
+    0,                       !- Fan Power Coefficient 1
+    1,                       !- Fan Power Coefficient 2
+    0,                       !- Fan Power Coefficient 3
+    0,                       !- Fan Power Coefficient 4
+    0,                       !- Fan Power Coefficient 5
+    Model Outdoor Air Node,!- Air Inlet Node Name
+    Regen Coil Inlet Node;   !- Air Outlet Node Name
+
+Coil:Heating:Electric,
+    drier regen coil,    !- Name
+    ,                        !- Availability Schedule Name
+    1,                       !- Efficiency
+    1200.0,                 !- Nominal Capacity {W}
+    Regen Coil Inlet Node,   !- Air Inlet Node Name
+    Regen Coil Out Node;     !- Air Outlet Node Name
+    ;                        !- Temperature Setpoint Node Name
+
+Dehumidifier:Desiccant:NoFans,
+    drier,                   !- Name
+    ,                        !- Availability Schedule Name
+    Model Outdoor Air Node,    !- Process Air Inlet Node Name
+    humidifier outlet,       !- Process Air Outlet Node Name
+    Regen Coil Out Node,         !- Regeneration Air Inlet Node Name
+    Model Outdoor Air Node,         !- Regeneration Fan Inlet Node Name
+    LeavingMaximumHumidityRatioSetpoint,  !- Control Type
+    0.007,                   !- Leaving Maximum Humidi3ty Ratio Setpoint {kgWater/kgDryAir}
+    1,                       !- Nominal Process Air Flow Rate {m3/s}
+    2.5,                     !- Nominal Process Air Velocity {m/s}
+    10,                      !- Rotor Power {W}
+    Coil:Heating:Electric,       !- Regeneration Coil Object Type
+    drier regen coil,    !- Regeneration Coil Name
+    Fan:VariableVolume,      !- Regeneration Fan Object Type
+    drier regen fan,     !- Regeneration Fan Name
+    DEFAULT;                 !- Performance Model Type
 
 
 !-   ===========  ALL OBJECTS IN CLASS: OUTDOORAIR:NODE ===========
