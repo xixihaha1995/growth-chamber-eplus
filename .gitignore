@@ -20,3 +20,5 @@
 *.R*
 *.expidf
 *.csv
+*.htm
+\.idea

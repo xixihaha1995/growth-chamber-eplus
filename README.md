@@ -24,6 +24,8 @@
     - Chemical drier unit:
         - Regeneration Coil:Heating:Electric, 1200 W
         - Regeneration Fan:VariableVolume, 600 Pressure Rise, 1.3 Maximum Flow Rat, 0,7 Fan Total Efficiency
+        - Fresh Air Intake with damper: <- indoor air
+        - Reactivation air outlet: -> outdoor air
     - Chamber HVAC: 
         - HVACTemplate:Zone:PTAC
         - gc temperature sp
@@ -32,13 +34,30 @@
         - lights: 1.07E+01 W/m2
         - Living Wall
             - PM method
-            - Total leaf area (m2): 20
-            - LED nominal intensity (umol/m2/s): 32.5
-            - LED nominal power (W): 640
+            - DaylightControl1-1 ✅
+            - Total leaf area (m2): 20 ✅
+            - LED nominal intensity (umol/m2/s): 32.5 ✅
+            - LED nominal power (W): 640 ✅
+            - Outputs:Evaporatranspiration rate (kg/s) ✅
     - Chamber Outside boundary condition: Adiabatic (No heat transfer, but store heat in the thermal mass)
     - Room HVAC: None
 
-2. Upgraded model (chamber within a room):
+2. Debugging
+    - Change HVAC from PTAC to FanCoil (electricity power etc.)
+        - CX9041-WATER COOLED DX CONDENSING UNIT WITH HOT GAS SYSTEM FOR CONTINUOUS COMPRESSOR OPERATION AND TIGHT TEMPERATURE CONTROL
+            - ElectricCentrifugalChiller
+            - NominalCOP (W/W): 3.2
+        - ❓CX9041-ASSY-AIR HANDLER UNIT, MT, DX COILS, 2X1000W HEATERS, 60HZ
+    - No Differences:
+        - Dehumidifier:Desiccant:NoFans
+        - Humidifier:Steam:Electric
+
+
+3. debugging
+    - Is chemical drier working? (Dehumidifier:DX)
+    - Is humidifir working? (to delete)
+
+3. Upgraded model (chamber within a room):
     - Geometry: Chamber, Room
     - Material: for chamber and room
     - Chamber HVAC: 
@@ -53,6 +72,7 @@
         - Energy consumption (electricity measured by meters, secondly/minutely data, 1 week)
             - three-phase meter: https://a.co/d/8dgtneY
             - single-phase meter: https://www.ebay.com/itm/176450277332?mkcid=16&mkevt=1&mkrid=711-127632-2357-0&ssspo=mq44qhk8r1q&sssrc=2047675&ssuid=&var=476016459298&widget_ver=artemis&media=COPY
+
 
 ### visualization-eplusr
 

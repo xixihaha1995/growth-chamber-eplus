@@ -3392,47 +3392,16 @@ Lights,
 IndoorLivingWall,
     gc living wall,          !- Name
     Floor,                   !- Surface Name
-    Always On Discrete,      !- Schedule Name
+    Always Off Discrete,     !- Schedule Name
     Penman-Monteith,         !- Evapotranspiration Calculation Method
     LED,                     !- Lighting Method
     Always On Continuous,    !- LED Intensity Schedule Name
-    DaylightControl1-1,      !- Daylighting Control Name
+    ,                        !- Daylighting Control Name
     ,                        !- LED-Daylight Targeted Lighting Intensity Schedule Name
     20,                      !- Total Leaf Area {m2}
     65,                      !- LED Nominal Intensity {umol/m2-s}
     1280,                    !- LED Nominal Power {W}
     0.6;                     !- Radiant Fraction of LED Lights
-
-
-!-   ===========  ALL OBJECTS IN CLASS: DAYLIGHTING:CONTROLS ===========
-
-Daylighting:Controls,
-    DaylightControl1-1,      !- Name
-    Thermal Zone 1,          !- Zone or Space Name
-    SplitFlux,               !- Daylighting Method
-    Always On Continuous,    !- Availability Schedule Name
-    Continuous,              !- Lighting Control Type
-    0,                       !- Minimum Input Power Fraction for Continuous or ContinuousOff Dimming Control
-    0,                       !- Minimum Light Output Fraction for Continuous or ContinuousOff Dimming Control
-    1,                       !- Number of Stepped Control Steps
-    1,                       !- Probability Lighting will be Reset When Needed in Manual Stepped Control
-    ,                        !- Glare Calculation Daylighting Reference Point Name
-    ,                        !- Glare Calculation Azimuth Angle of View Direction Clockwise from Zone y-Axis {deg}
-    20,                      !- Maximum Allowable Discomfort Glare Index
-    ,                        !- DElight Gridding Resolution {m2}
-    ReferenceSouthPartition, !- Daylighting Reference Point 1 Name
-    1,                       !- Fraction of Lights Controlled by Reference Point 1
-    0;                       !- Illuminance Setpoint at Reference Point 1 {lux}
-
-
-!-   ===========  ALL OBJECTS IN CLASS: DAYLIGHTING:REFERENCEPOINT ===========
-
-Daylighting:ReferencePoint,
-    ReferenceSouthPartition, !- Name
-    Thermal Zone 1,          !- Zone or Space Name
-    1,                       !- X-Coordinate of Reference Point {m}
-    1,                       !- Y-Coordinate of Reference Point {m}
-    1;                       !- Z-Coordinate of Reference Point {m}
 
 
 !-   ===========  ALL OBJECTS IN CLASS: ZONEINFILTRATION:DESIGNFLOWRATE ===========
@@ -3450,61 +3419,61 @@ ZoneInfiltration:DesignFlowRate,
     ,                        !- Temperature Term Coefficient
     ,                        !- Velocity Term Coefficient
     ;                        !- Velocity Squared Term Coefficient
-
-
+! 
+! 
 !-   ===========  ALL OBJECTS IN CLASS: HVACTEMPLATE:THERMOSTAT ===========
-
-HVACTemplate:Thermostat,
-    gc temperature sp,       !- Name
-    ,                        !- Heating Setpoint Schedule Name
-    15,                      !- Constant Heating Setpoint {C}
-    ,                        !- Cooling Setpoint Schedule Name
-    35;                      !- Constant Cooling Setpoint {C}
-
-
+! 
+! HVACTemplate:Thermostat,
+!     gc temperature sp,       !- Name
+!     ,                        !- Heating Setpoint Schedule Name
+!     15,                      !- Constant Heating Setpoint {C}
+!     ,                        !- Cooling Setpoint Schedule Name
+!     35;                      !- Constant Cooling Setpoint {C}
+! 
+! 
 !-   ===========  ALL OBJECTS IN CLASS: HVACTEMPLATE:ZONE:PTAC ===========
-
-HVACTemplate:Zone:PTAC,
-    Thermal Zone 1,          !- Zone Name
-    gc temperature sp,       !- Template Thermostat Name
-    autosize,                !- Cooling Supply Air Flow Rate {m3/s}
-    autosize,                !- Heating Supply Air Flow Rate {m3/s}
-    ,                        !- No Load Supply Air Flow Rate {m3/s}
-    ,                        !- Zone Heating Sizing Factor
-    ,                        !- Zone Cooling Sizing Factor
-    DetailedSpecification,   !- Outdoor Air Method
-    ,                        !- Outdoor Air Flow Rate per Person {m3/s}
-    ,                        !- Outdoor Air Flow Rate per Zone Floor Area {m3/s-m2}
-    0,                       !- Outdoor Air Flow Rate per Zone {m3/s}
-    ,                        !- System Availability Schedule Name
-    ,                        !- Supply Fan Operating Mode Schedule Name
-    DrawThrough,             !- Supply Fan Placement
-    0.7,                     !- Supply Fan Total Efficiency
-    75,                      !- Supply Fan Delta Pressure {Pa}
-    0.9,                     !- Supply Fan Motor Efficiency
-    SingleSpeedDX,           !- Cooling Coil Type
-    ,                        !- Cooling Coil Availability Schedule Name
-    autosize,                !- Cooling Coil Gross Rated Total Capacity {W}
-    autosize,                !- Cooling Coil Gross Rated Sensible Heat Ratio
-    3,                       !- Cooling Coil Gross Rated Cooling COP {W/W}
-    Electric,                !- Heating Coil Type
-    ,                        !- Heating Coil Availability Schedule Name
-    2000,                    !- Heating Coil Capacity {W}
-    0.8,                     !- Gas Heating Coil Efficiency
-    ,                        !- Gas Heating Coil Parasitic Electric Load {W}
-    ,                        !- Dedicated Outdoor Air System Name
-    SupplyAirTemperature,    !- Zone Cooling Design Supply Air Temperature Input Method
-    14,                      !- Zone Cooling Design Supply Air Temperature {C}
-    11.11,                   !- Zone Cooling Design Supply Air Temperature Difference {deltaC}
-    SupplyAirTemperature,    !- Zone Heating Design Supply Air Temperature Input Method
-    50,                      !- Zone Heating Design Supply Air Temperature {C}
-    30,                      !- Zone Heating Design Supply Air Temperature Difference {deltaC}
-    dsoa,                    !- Design Specification Outdoor Air Object Name
-    ,                        !- Design Specification Zone Air Distribution Object Name
-    None,                    !- Baseboard Heating Type
-    ,                        !- Baseboard Heating Availability Schedule Name
-    autosize,                !- Baseboard Heating Capacity {W}
-    None;                    !- Capacity Control Method
+! 
+! HVACTemplate:Zone:PTAC,
+!     Thermal Zone 1,          !- Zone Name
+!     gc temperature sp,       !- Template Thermostat Name
+!     autosize,                !- Cooling Supply Air Flow Rate {m3/s}
+!     autosize,                !- Heating Supply Air Flow Rate {m3/s}
+!     ,                        !- No Load Supply Air Flow Rate {m3/s}
+!     ,                        !- Zone Heating Sizing Factor
+!     ,                        !- Zone Cooling Sizing Factor
+!     DetailedSpecification,   !- Outdoor Air Method
+!     ,                        !- Outdoor Air Flow Rate per Person {m3/s}
+!     ,                        !- Outdoor Air Flow Rate per Zone Floor Area {m3/s-m2}
+!     0,                       !- Outdoor Air Flow Rate per Zone {m3/s}
+!     ,                        !- System Availability Schedule Name
+!     ,                        !- Supply Fan Operating Mode Schedule Name
+!     DrawThrough,             !- Supply Fan Placement
+!     0.7,                     !- Supply Fan Total Efficiency
+!     75,                      !- Supply Fan Delta Pressure {Pa}
+!     0.9,                     !- Supply Fan Motor Efficiency
+!     SingleSpeedDX,           !- Cooling Coil Type
+!     ,                        !- Cooling Coil Availability Schedule Name
+!     autosize,                !- Cooling Coil Gross Rated Total Capacity {W}
+!     autosize,                !- Cooling Coil Gross Rated Sensible Heat Ratio
+!     3,                       !- Cooling Coil Gross Rated Cooling COP {W/W}
+!     Electric,                !- Heating Coil Type
+!     ,                        !- Heating Coil Availability Schedule Name
+!     2000,                    !- Heating Coil Capacity {W}
+!     0.8,                     !- Gas Heating Coil Efficiency
+!     ,                        !- Gas Heating Coil Parasitic Electric Load {W}
+!     ,                        !- Dedicated Outdoor Air System Name
+!     SupplyAirTemperature,    !- Zone Cooling Design Supply Air Temperature Input Method
+!     14,                      !- Zone Cooling Design Supply Air Temperature {C}
+!     11.11,                   !- Zone Cooling Design Supply Air Temperature Difference {deltaC}
+!     SupplyAirTemperature,    !- Zone Heating Design Supply Air Temperature Input Method
+!     50,                      !- Zone Heating Design Supply Air Temperature {C}
+!     30,                      !- Zone Heating Design Supply Air Temperature Difference {deltaC}
+!     dsoa,                    !- Design Specification Outdoor Air Object Name
+!     ,                        !- Design Specification Zone Air Distribution Object Name
+!     None,                    !- Baseboard Heating Type
+!     ,                        !- Baseboard Heating Availability Schedule Name
+!     autosize,                !- Baseboard Heating Capacity {W}
+!     None;                    !- Capacity Control Method
 
 
 !-   ===========  ALL OBJECTS IN CLASS: DESIGNSPECIFICATION:OUTDOORAIR ===========
@@ -3533,39 +3502,6 @@ ZoneControl:Humidistat,
     dehumidifying Relative Humidity Sch;  !- Dehumidifying Relative Humidity Setpoint Schedule Name
 
 
-!-   ===========  ALL OBJECTS IN CLASS: FAN:VARIABLEVOLUME ===========
-
-Fan:VariableVolume,
-    drier regen fan,         !- Name
-    ,                        !- Availability Schedule Name
-    0.7,                     !- Fan Total Efficiency
-    600.0,                   !- Pressure Rise {Pa}
-    1.3,                     !- Maximum Flow Rate {m3/s}
-    FixedFlowRate,           !- Fan Power Minimum Flow Rate Input Method
-    ,                        !- Fan Power Minimum Flow Fraction
-    0.0,                     !- Fan Power Minimum Air Flow Rate {m3/s}
-    0.9,                     !- Motor Efficiency
-    1.0,                     !- Motor In Airstream Fraction
-    0,                       !- Fan Power Coefficient 1
-    1,                       !- Fan Power Coefficient 2
-    0,                       !- Fan Power Coefficient 3
-    0,                       !- Fan Power Coefficient 4
-    0,                       !- Fan Power Coefficient 5
-    Model Outdoor Air Node,  !- Air Inlet Node Name
-    Regen Coil Inlet Node;   !- Air Outlet Node Name
-
-
-!-   ===========  ALL OBJECTS IN CLASS: COIL:HEATING:ELECTRIC ===========
-
-Coil:Heating:Electric,
-    drier regen coil,        !- Name
-    ,                        !- Availability Schedule Name
-    1,                       !- Efficiency
-    1200.0,                  !- Nominal Capacity {W}
-    Regen Coil Inlet Node,   !- Air Inlet Node Name
-    Regen Coil Out Node;     !- Air Outlet Node Name
-
-
 !-   ===========  ALL OBJECTS IN CLASS: HUMIDIFIER:STEAM:ELECTRIC ===========
 
 Humidifier:Steam:Electric,
@@ -3581,22 +3517,50 @@ Humidifier:Steam:Electric,
 
 !-   ===========  ALL OBJECTS IN CLASS: DEHUMIDIFIER:DESICCANT:NOFANS ===========
 
+Fan:VariableVolume,
+    drier regen fan,     !- Name
+    ,    !- Availability Schedule Name
+    0.7,                     !- Fan Total Efficiency
+    600.0,                   !- Pressure Rise {Pa}
+    1.3,                     !- Maximum Flow Rate {m3/s}
+    FixedFlowRate,           !- Fan Power Minimum Flow Rate Input Method
+    ,                        !- Fan Power Minimum Flow Fraction
+    0.0,                     !- Fan Power Minimum Air Flow Rate {m3/s}
+    0.9,                     !- Motor Efficiency
+    1.0,                     !- Motor In Airstream Fraction
+    0,                       !- Fan Power Coefficient 1
+    1,                       !- Fan Power Coefficient 2
+    0,                       !- Fan Power Coefficient 3
+    0,                       !- Fan Power Coefficient 4
+    0,                       !- Fan Power Coefficient 5
+    Model Outdoor Air Node,!- Air Inlet Node Name
+    Regen Coil Inlet Node;   !- Air Outlet Node Name
+
+Coil:Heating:Electric,
+    drier regen coil,    !- Name
+    ,                        !- Availability Schedule Name
+    1,                       !- Efficiency
+    1200.0,                 !- Nominal Capacity {W}
+    Regen Coil Inlet Node,   !- Air Inlet Node Name
+    Regen Coil Out Node;     !- Air Outlet Node Name
+    ;                        !- Temperature Setpoint Node Name
+
 Dehumidifier:Desiccant:NoFans,
     drier,                   !- Name
     ,                        !- Availability Schedule Name
-    Model Outdoor Air Node,  !- Process Air Inlet Node Name
+    Model Outdoor Air Node,    !- Process Air Inlet Node Name
     humidifier outlet,       !- Process Air Outlet Node Name
-    Regen Coil Out Node,     !- Regeneration Air Inlet Node Name
-    Model Outdoor Air Node,  !- Regeneration Fan Inlet Node Name
+    Regen Coil Out Node,         !- Regeneration Air Inlet Node Name
+    Model Outdoor Air Node,         !- Regeneration Fan Inlet Node Name
     LeavingMaximumHumidityRatioSetpoint,  !- Control Type
-    0.007,                   !- Leaving Maximum Humidity Ratio Setpoint {kgWater/kgDryAir}
+    0.007,                   !- Leaving Maximum Humidi3ty Ratio Setpoint {kgWater/kgDryAir}
     1,                       !- Nominal Process Air Flow Rate {m3/s}
     2.5,                     !- Nominal Process Air Velocity {m/s}
     10,                      !- Rotor Power {W}
-    Coil:Heating:Electric,   !- Regeneration Coil Object Type
-    drier regen coil,        !- Regeneration Coil Name
+    Coil:Heating:Electric,       !- Regeneration Coil Object Type
+    drier regen coil,    !- Regeneration Coil Name
     Fan:VariableVolume,      !- Regeneration Fan Object Type
-    drier regen fan,         !- Regeneration Fan Name
+    drier regen fan,     !- Regeneration Fan Name
     DEFAULT;                 !- Performance Model Type
 
 
@@ -3835,18 +3799,248 @@ OutputControl:Table:Style,
     HTML;                    !- Column Separator
 
 
-!-   ===========  ALL OBJECTS IN CLASS: OUTPUT:VARIABLE ===========
-
-Output:Variable,
-    *,                       !- Key Value
-    Indoor Living Wall Evapotranspiration Rate ,  !- Variable Name
-    Timestep;                !- Reporting Frequency
-
-Output:Variable,*,Zone Air Relative Humidity,Timestep;
-
-
 !-   ===========  ALL OBJECTS IN CLASS: OUTPUT:SQLITE ===========
 
 Output:SQLite,
     SimpleAndTabular;        !- Option Type
+! 
+! -------------------------------------------------------------
+! New objects created from ExpandObjects
+! -------------------------------------------------------------
+! 
 
+ScheduleTypeLimits,
+  HVACTemplate Any Number;                                 !- Name
+
+Schedule:Compact,
+  HVACTemplate-Always 15,                                  !- Name
+  HVACTemplate Any Number,                                 !- Schedule Type Limits Name
+  Through: 12/31,                                          !- Field 1
+  For: AllDays,                                            !- Field 2
+  Until: 24:00,                                            !- Field 3
+  15;                                                      !- Field 4
+
+Schedule:Compact,
+  HVACTemplate-Always 35,                                  !- Name
+  HVACTemplate Any Number,                                 !- Schedule Type Limits Name
+  Through: 12/31,                                          !- Field 1
+  For: AllDays,                                            !- Field 2
+  Until: 24:00,                                            !- Field 3
+  35;                                                      !- Field 4
+
+ThermostatSetpoint:DualSetpoint,
+  gc temperature sp Dual SP Control,                       !- Name
+  HVACTemplate-Always 15,                                  !- Heating Setpoint Temperature Schedule Name
+  HVACTemplate-Always 35;                                  !- Cooling Setpoint Temperature Schedule Name
+
+Schedule:Compact,
+  HVACTemplate-Always 4,                                   !- Name
+  HVACTemplate Any Number,                                 !- Schedule Type Limits Name
+  Through: 12/31,                                          !- Field 1
+  For: AllDays,                                            !- Field 2
+  Until: 24:00,                                            !- Field 3
+  4;                                                       !- Field 4
+
+ZoneControl:Thermostat,
+  Thermal Zone 1 Thermostat,                               !- Name
+  Thermal Zone 1,                                          !- Zone or ZoneList Name
+  HVACTemplate-Always 4,                                   !- Control Type Schedule Name
+  ThermostatSetpoint:DualSetpoint,                         !- Control Object Type
+  gc temperature sp Dual SP Control;                       !- Control Name
+
+Sizing:Zone,
+  Thermal Zone 1,                                          !- Zone or ZoneList Name
+  SupplyAirTemperature,                                    !- Zone Cooling Design Supply Air Temperature Input Method
+  14,                                                      !- Zone Cooling Design Supply Air Temperature {C}
+  11.11,                                                   !- Zone Cooling Design Supply Air Temperature Difference {delta C}
+  SupplyAirTemperature,                                    !- Zone Heating Design Supply Air Temperature Input Method
+  50,                                                      !- Zone Heating Design Supply Air Temperature {C}
+  30,                                                      !- Zone Heating Design Supply Air Temperature Difference {delta C}
+  0.008,                                                   !- Zone Cooling Design Supply Air Humidity Ratio {kg-H20/kg-air}
+  0.008,                                                   !- Zone Heating Design Supply Air Humidity Ratio {kg-H2O/kg-air}
+  dsoa,                                                    !- Design Specification Outdoor Air Object Name
+  ,                                                        !- Zone Heating Sizing Factor
+  ,                                                        !- Zone Cooling Sizing Factor
+  DesignDay,                                               !- Cooling Design Air Flow Method
+  0,                                                       !- Cooling Design Air Flow Rate {m3/s}
+  ,                                                        !- Cooling Minimum Air Flow per Zone Floor Area {m3/s-m2}
+  ,                                                        !- Cooling Minimum Air Flow {m3/s}
+  0,                                                       !- Cooling Minimum Air Flow Fraction {}
+  DesignDay,                                               !- Heating Design Air Flow Method
+  0,                                                       !- Heating Design Air Flow Rate {m3/s}
+  ,                                                        !- Heating Maximum Air Flow per Zone Floor Area {m3/s-m2}
+  ,                                                        !- Heating Maximum Air Flow {m3/s}
+  0,                                                       !- Heating Maximum Air Flow Fraction {}
+  ;                                                        !- Design Specification Zone Air Distribution Object Name
+
+ZoneHVAC:EquipmentConnections,
+  Thermal Zone 1,                                          !- Zone Name
+  Thermal Zone 1 Equipment,                                !- Zone Conditioning Equipment List Name
+  Thermal Zone 1 PTAC Supply Inlet,                        !- Zone Air Inlet Node or NodeList Name
+  Thermal Zone 1 PTAC Return,                              !- Zone Air Exhaust Node or NodeList Name
+  Thermal Zone 1 Zone Air Node,                            !- Zone Air Node Name
+  Thermal Zone 1 Return Outlet;                            !- Zone Return Air Node Name
+
+ZoneHVAC:EquipmentList,
+  Thermal Zone 1 Equipment,                                !- Name
+  SequentialLoad,                                          !- Load Distribution Scheme
+  ZoneHVAC:PackagedTerminalAirConditioner,                 !- Zone Equipment Object Type
+  Thermal Zone 1 PTAC,                                     !- Zone Equipment Name
+  1,                                                       !- Zone Equipment Cooling Sequence
+  1,                                                       !- Zone Equipment Heating or No-Load Sequence
+  ,                                                        !- Zone Equipment Sequential Cooling Fraction Schedule Name
+  ;                                                        !- Zone Equipment Sequential Heating Fraction Schedule Name
+
+ZoneHVAC:PackagedTerminalAirConditioner,
+  Thermal Zone 1 PTAC,                                     !- Name
+  ,                                                        !- Availability Schedule Name
+  Thermal Zone 1 PTAC Return,                              !- Air Inlet Node Name
+  Thermal Zone 1 PTAC Supply Inlet,                        !- Air Outlet Node Name
+  OutdoorAir:Mixer,                                        !- Outdoor Air Mixer Object Type
+  Thermal Zone 1 PTAC OA Mixing Box,                       !- Outdoor Air Mixer Name
+  autosize,                                                !- Cooling Supply Air Flow Rate {m3/s}
+  autosize,                                                !- Heating Supply Air Flow Rate {m3/s}
+  ,                                                        !- No Load Supply Air Flow Rate {m3/s}
+  ,                                                        !- No Load Supply Air Flow Rate Control Set To Low Speed
+  autosize,                                                !- Cooling Outdoor Air Flow Rate {m3/s}
+  autosize,                                                !- Heating Outdoor Air Flow Rate {m3/s}
+  autosize,                                                !- No Load Outdoor Air Flow Rate {m3/s}
+  Fan:OnOff,                                               !- Supply Air Fan Object Type
+  Thermal Zone 1 PTAC Supply Fan,                          !- Supply Air Fan Name
+  Coil:Heating:Electric,                                   !- Heating Coil Object Type
+  Thermal Zone 1 PTAC Heating Coil,                        !- Heating Coil Name
+  Coil:Cooling:DX:SingleSpeed,                             !- Cooling Coil Object Type
+  Thermal Zone 1 PTAC Cooling Coil,                        !- Cooling Coil Name
+  DrawThrough,                                             !- Fan Placement
+  HVACTemplate-Always 0;                                   !- Supply Air Fan Operating Mode Schedule Name
+
+Schedule:Compact,
+  HVACTemplate-Always 0,                                   !- Name
+  HVACTemplate Any Number,                                 !- Schedule Type Limits Name
+  Through: 12/31,                                          !- Field 1
+  For: AllDays,                                            !- Field 2
+  Until: 24:00,                                            !- Field 3
+  0;                                                       !- Field 4
+
+Fan:OnOff,
+  Thermal Zone 1 PTAC Supply Fan,                          !- Name
+  HVACTemplate-Always 1,                                   !- Availability Schedule Name
+  0.7,                                                     !- Fan Efficiency
+  75,                                                      !- Pressure Rise {Pa}
+  autosize,                                                !- Maximum Flow Rate {m3/s}
+  0.9,                                                     !- Motor Efficiency
+  1,                                                       !- Motor in Airstream Fraction
+  Thermal Zone 1 PTAC Heating Coil Outlet,                 !- Air Inlet Node Name
+  Thermal Zone 1 PTAC Supply Inlet;                        !- Air Outlet Node Name
+
+Schedule:Compact,
+  HVACTemplate-Always 1,                                   !- Name
+  HVACTemplate Any Number,                                 !- Schedule Type Limits Name
+  Through: 12/31,                                          !- Field 1
+  For: AllDays,                                            !- Field 2
+  Until: 24:00,                                            !- Field 3
+  1;                                                       !- Field 4
+
+OutdoorAir:Mixer,
+  Thermal Zone 1 PTAC OA Mixing Box,                       !- Name
+  Thermal Zone 1 PTAC Mixed Air Outlet,                    !- Mixed Air Node Name
+  Thermal Zone 1 PTAC Outside Air Inlet,                   !- Outside Air Stream Node Name
+  Thermal Zone 1 PTAC Relief Air Outlet,                   !- Relief Air Stream Node Name
+  Thermal Zone 1 PTAC Return;                              !- Return Air Stream Node Name
+
+OutdoorAir:Node,
+  Thermal Zone 1 PTAC Outside Air Inlet,                   !- Name
+  -1;                                                      !- Height Above Ground
+
+Coil:Cooling:DX:SingleSpeed,
+  Thermal Zone 1 PTAC Cooling Coil,                        !- Name
+  ,                                                        !- Availability Schedule Name
+  autosize,                                                !- Gross Rated Total Cooling Capacity {W}
+  autosize,                                                !- Gross Rated Sensible Heat Ratio
+  3,                                                       !- Rated COP
+  autosize,                                                !- Rated Air Volume Flow Rate {m3/s}
+  ,                                                        !- 2017 Rated Evaporator Fan Power per Volume Flow Rate {W/(m3/s)}
+  ,                                                        !- 2023 Rated Evaporator Fan Power Per Volume Flow Rate {W/(m3/s)}
+  Thermal Zone 1 PTAC Mixed Air Outlet,                    !- Air Inlet Node Name
+  Thermal Zone 1 PTAC Cooling Coil Outlet,                 !- Air Outlet Node Name
+  Thermal Zone 1 PTAC Cooling Coil Cap-FT,                 !- Total Cooling Capacity Modifier Curve (function of temperature)
+  Thermal Zone 1 PTAC Cooling Coil Cap-FF,                 !- Total Cooling Capacity Modifier Curve (function of flow fraction)
+  Thermal Zone 1 PTAC Cooling Coil EIR-FT,                 !- Energy Input Ratio Modifier Curve (function of temperature)
+  Thermal Zone 1 PTAC Cooling Coil EIR-FF,                 !- Energy Input Ratio Modifier Curve (function of flow fraction)
+  Thermal Zone 1 PTAC Cooling Coil Coil PLF,               !- Part Load Fraction Correlation (function of part load ratio)
+  ,                                                        !- Minimum Outdoor Dry-Bulb Temperature for Compressor Operation {C}
+  0,                                                       !- Nominal Time for Condensate Removal to Begin
+  0,                                                       !- Ratio of Initial Moisture Evaporation Rate and Steady State Latent Capacity
+  0,                                                       !- Maximum Cycling Rate
+  0,                                                       !- Latent Capacity Time Constant
+  Thermal Zone 1 PTAC Cooling Coil Condenser Inlet,        !- Condenser Air Inlet Node Name
+  AirCooled,                                               !- Condenser Type
+  0,                                                       !- Evaporative Condenser Effectiveness
+  ,                                                        !- Evaporative Condenser Air Flow Rate
+  0,                                                       !- Evaporative Condenser Pump Rated Power Consumption
+  0,                                                       !- Crankcase Heater Capacity
+  ,                                                        !- Crankcase Heater Capacity Function of Temperature Curve Name
+  10;                                                      !- Maximum Outdoor Dry-Bulb Temperature for Crankcase Heater Operation
+
+Curve:Biquadratic,
+  Thermal Zone 1 PTAC Cooling Coil Cap-FT,                 !- Name
+  0.942587793,                                             !- Coefficient1 Constant
+  0.009543347,                                             !- Coefficient2 x
+  0.00068377,                                              !- Coefficient3 x**2
+  -0.011042676,                                            !- Coefficient4 y
+  0.000005249,                                             !- Coefficient5 y**2
+  -0.00000972,                                             !- Coefficient6 x*y
+  12.77778,                                                !- Minimum Value of x
+  23.88889,                                                !- Maximum Value of x
+  18.0,                                                    !- Minimum Value of y
+  46.11111;                                                !- Maximum Value of y
+
+Curve:Quadratic,
+  Thermal Zone 1 PTAC Cooling Coil Cap-FF,                 !- Name
+  0.8,                                                     !- Coefficient1 Constant
+  0.2,                                                     !- Coefficient2 x
+  0,                                                       !- Coefficient3 x**2
+  0.5,                                                     !- Minimum Value of x
+  1.5;                                                     !- Maximum Value of x
+
+Curve:Biquadratic,
+  Thermal Zone 1 PTAC Cooling Coil EIR-FT,                 !- Name
+  0.342414409,                                             !- Coefficient1 Constant
+  0.034885008,                                             !- Coefficient2 x
+  -0.0006237,                                              !- Coefficient3 x**2
+  0.004977216,                                             !- Coefficient4 y
+  0.000437951,                                             !- Coefficient5 y**2
+  -0.000728028,                                            !- Coefficient6 x*y
+  12.77778,                                                !- Minimum Value of x
+  23.88889,                                                !- Maximum Value of x
+  18.0,                                                    !- Minimum Value of y
+  46.11111;                                                !- Maximum Value of y
+
+Curve:Quadratic,
+  Thermal Zone 1 PTAC Cooling Coil EIR-FF,                 !- Name
+  1.1552,                                                  !- Coefficient1 Constant
+  -0.1808,                                                 !- Coefficient2 x
+  0.0256,                                                  !- Coefficient3 x**2
+  0.5,                                                     !- Minimum Value of x
+  1.5;                                                     !- Maximum Value of x
+
+Curve:Quadratic,
+  Thermal Zone 1 PTAC Cooling Coil Coil PLF,               !- Name
+  0.85,                                                    !- Coefficient1 Constant
+  0.15,                                                    !- Coefficient2 x
+  0,                                                       !- Coefficient3 x**2
+  0,                                                       !- Minimum Value of x
+  1;                                                       !- Maximum Value of x
+
+OutdoorAir:Node,
+  Thermal Zone 1 PTAC Cooling Coil Condenser Inlet,        !- Name
+  -1;                                                      !- Height Above Ground
+
+Coil:Heating:Electric,
+  Thermal Zone 1 PTAC Heating Coil,                        !- Name
+  ,                                                        !- Availability Schedule Name
+  1,                                                       !- Efficiency
+  2000,                                                    !- Nominal Capacity of the Coil {W}
+  Thermal Zone 1 PTAC Cooling Coil Outlet,                 !- Air Inlet Node Name
+  Thermal Zone 1 PTAC Heating Coil Outlet,                 !- Air Outlet Node Name
+  ;                                                        !- Coil Temp Setpoint Node
