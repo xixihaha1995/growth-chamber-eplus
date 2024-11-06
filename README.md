@@ -43,21 +43,168 @@
     - Room HVAC: None
 
 2. Debugging
+    - outdoor air might be in fact indoor air within SI building，which means DesignSpecification:OutdoorAir should be removed.
+    - SI building growth chamber access
+    - lights: LED from spec to E+
     - Change HVAC from PTAC to FanCoil (electricity power etc.)
         - CX9041-WATER COOLED DX CONDENSING UNIT WITH HOT GAS SYSTEM FOR CONTINUOUS COMPRESSOR OPERATION AND TIGHT TEMPERATURE CONTROL
             - ElectricCentrifugalChiller
-            - NominalCOP (W/W): 3.2
+            - ❓NominalCOP (W/W): 3.2
         - ❓CX9041-ASSY-AIR HANDLER UNIT, MT, DX COILS, 2X1000W HEATERS, 60HZ
     - No Differences:
         - Dehumidifier:Desiccant:NoFans
         - Humidifier:Steam:Electric
 
 
-3. debugging
-    - Is chemical drier working? (Dehumidifier:DX)
-    - Is humidifir working? (to delete)
+3. copy and paste
 
-3. Upgraded model (chamber within a room):
+Lights,
+    led lights,              !- Name
+    Thermal Zone 1,          !- Zone or ZoneList or Space or SpaceList Name
+    Always On Continuous,    !- Schedule Name
+    Watts/Area,              !- Design Level Calculation Method
+    ,                        !- Lighting Level {W}
+    10.6562713125426,        !- Watts per Floor Area {W/m2}
+    ,                        !- Watts per Person {W/person}
+    ,                        !- Return Air Fraction
+    ,                        !- Fraction Radiant
+    ,                        !- Fraction Visible
+    ;                        !- Fraction Replaceable
+
+IndoorLivingWall,
+    gc living wall,          !- Name
+    Floor,                   !- Surface Name
+    Always On Discrete,      !- Schedule Name
+    Penman-Monteith,         !- Evapotranspiration Calculation Method
+    LED,                     !- Lighting Method
+    Always On Continuous,    !- LED Intensity Schedule Name
+    DaylightControl1-1,      !- Daylighting Control Name
+    ,                        !- LED-Daylight Targeted Lighting Intensity Schedule Name
+    200,                     !- Total Leaf Area {m2}
+    65,                      !- LED Nominal Intensity {umol/m2-s}
+    1280,                    !- LED Nominal Power {W}
+    0.6;                     !- Radiant Fraction of LED Lights
+
+
+
+HVACTemplate:Zone:PTAC,
+    Thermal Zone 1,          !- Zone Name
+    gc temperature sp,       !- Template Thermostat Name
+    autosize,                !- Cooling Supply Air Flow Rate {m3/s}
+    autosize,                !- Heating Supply Air Flow Rate {m3/s}
+    ,                        !- No Load Supply Air Flow Rate {m3/s}
+    ,                        !- Zone Heating Sizing Factor
+    ,                        !- Zone Cooling Sizing Factor
+    DetailedSpecification,   !- Outdoor Air Method
+    ,                        !- Outdoor Air Flow Rate per Person {m3/s}
+    ,                        !- Outdoor Air Flow Rate per Zone Floor Area {m3/s-m2}
+    0,                       !- Outdoor Air Flow Rate per Zone {m3/s}
+    ,                        !- System Availability Schedule Name
+    ,                        !- Supply Fan Operating Mode Schedule Name
+    DrawThrough,             !- Supply Fan Placement
+    0.7,                     !- Supply Fan Total Efficiency
+    75,                      !- Supply Fan Delta Pressure {Pa}
+    0.9,                     !- Supply Fan Motor Efficiency
+    SingleSpeedDX,           !- Cooling Coil Type
+    ,                        !- Cooling Coil Availability Schedule Name
+    autosize,                !- Cooling Coil Gross Rated Total Capacity {W}
+    autosize,                !- Cooling Coil Gross Rated Sensible Heat Ratio
+    3,                       !- Cooling Coil Gross Rated Cooling COP {W/W}
+    Electric,                !- Heating Coil Type
+    ,                        !- Heating Coil Availability Schedule Name
+    2000,                    !- Heating Coil Capacity {W}
+    0.8,                     !- Gas Heating Coil Efficiency
+    ,                        !- Gas Heating Coil Parasitic Electric Load {W}
+    ,                        !- Dedicated Outdoor Air System Name
+    SupplyAirTemperature,    !- Zone Cooling Design Supply Air Temperature Input Method
+    14,                      !- Zone Cooling Design Supply Air Temperature {C}
+    11.11,                   !- Zone Cooling Design Supply Air Temperature Difference {deltaC}
+    SupplyAirTemperature,    !- Zone Heating Design Supply Air Temperature Input Method
+    50,                      !- Zone Heating Design Supply Air Temperature {C}
+    30,                      !- Zone Heating Design Supply Air Temperature Difference {deltaC}
+    dsoa,                    !- Design Specification Outdoor Air Object Name
+    ,                        !- Design Specification Zone Air Distribution Object Name
+    None,                    !- Baseboard Heating Type
+    ,                        !- Baseboard Heating Availability Schedule Name
+    autosize,                !- Baseboard Heating Capacity {W}
+    None;                    !- Capacity Control Method
+
+
+Dehumidifier:Desiccant:NoFans,
+    drier,                   !- Name
+    ,                        !- Availability Schedule Name
+    Model Outdoor Air Node,  !- Process Air Inlet Node Name
+    humidifier outlet,       !- Process Air Outlet Node Name
+    Regen Coil Out Node,     !- Regeneration Air Inlet Node Name
+    Model Outdoor Air Node,  !- Regeneration Fan Inlet Node Name
+    LeavingMaximumHumidityRatioSetpoint,  !- Control Type
+    0.007,                   !- Leaving Maximum Humidity Ratio Setpoint {kgWater/kgDryAir}
+    1,                       !- Nominal Process Air Flow Rate {m3/s}
+    2.5,                     !- Nominal Process Air Velocity {m/s}
+    10,                      !- Rotor Power {W}
+    Coil:Heating:Electric,   !- Regeneration Coil Object Type
+    drier regen coil,        !- Regeneration Coil Name
+    Fan:VariableVolume,      !- Regeneration Fan Object Type
+    drier regen fan,         !- Regeneration Fan Name
+    DEFAULT;                 !- Performance Model Type
+
+Humidifier:Steam:Electric,
+    humidifier,              !- Name
+    ,                        !- Availability Schedule Name
+    0.00000222,              !- Rated Capacity {m3/s}
+    autosize,                !- Rated Power {W}
+    ,                        !- Rated Fan Power {W}
+    ,                        !- Standby Power {W}
+    humidifier air inlet,    !- Air Inlet Node Name
+    humidifier outlet;       !- Air Outlet Node Name
+
+DesignSpecification:OutdoorAir,
+    dsoa,                    !- Name
+    Flow/Zone,               !- Outdoor Air Method
+    ,                        !- Outdoor Air Flow per Person {m3/s-person}
+    ,                        !- Outdoor Air Flow per Zone Floor Area {m3/s-m2}
+    0.047;                   !- Outdoor Air Flow per Zone {m3/s}
+
+ZoneControl:Humidistat,
+    humidity sp,             !- Name
+    Thermal Zone 1,          !- Zone Name
+    humidifying Relative Humidity Sch,  !- Humidifying Relative Humidity Setpoint Schedule Name
+    dehumidifying Relative Humidity Sch;  !- Dehumidifying Relative Humidity Setpoint Schedule Name
+
+!-   ===========  ALL OBJECTS IN CLASS: FAN:VARIABLEVOLUME ===========
+
+Fan:VariableVolume,
+    drier regen fan,         !- Name
+    ,                        !- Availability Schedule Name
+    0.7,                     !- Fan Total Efficiency
+    600.0,                   !- Pressure Rise {Pa}
+    1.3,                     !- Maximum Flow Rate {m3/s}
+    FixedFlowRate,           !- Fan Power Minimum Flow Rate Input Method
+    ,                        !- Fan Power Minimum Flow Fraction
+    0.0,                     !- Fan Power Minimum Air Flow Rate {m3/s}
+    0.9,                     !- Motor Efficiency
+    1.0,                     !- Motor In Airstream Fraction
+    0,                       !- Fan Power Coefficient 1
+    1,                       !- Fan Power Coefficient 2
+    0,                       !- Fan Power Coefficient 3
+    0,                       !- Fan Power Coefficient 4
+    0,                       !- Fan Power Coefficient 5
+    Model Outdoor Air Node,  !- Air Inlet Node Name
+    Regen Coil Inlet Node;   !- Air Outlet Node Name
+
+
+!-   ===========  ALL OBJECTS IN CLASS: COIL:HEATING:ELECTRIC ===========
+
+Coil:Heating:Electric,
+    drier regen coil,        !- Name
+    ,                        !- Availability Schedule Name
+    1,                       !- Efficiency
+    1200.0,                  !- Nominal Capacity {W}
+    Regen Coil Inlet Node,   !- Air Inlet Node Name
+    Regen Coil Out Node;     !- Air Outlet Node Name
+
+
+4. Upgraded model (chamber within a room):
     - Geometry: Chamber, Room
     - Material: for chamber and room
     - Chamber HVAC: 
