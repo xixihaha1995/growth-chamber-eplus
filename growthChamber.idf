@@ -731,7 +731,7 @@ BuildingSurface:Detailed,
 Lights,
     all normal led lights without living walls,  !- Name
     Thermal Zone 1,          !- Zone or ZoneList or Space or SpaceList Name
-    Always On Continuous,    !- Schedule Name
+    Always Off Discrete,     !- Schedule Name
     LightingLevel,           !- Design Level Calculation Method
     2340,                    !- Lighting Level {W}
     ,                        !- Watts per Floor Area {W/m2}
