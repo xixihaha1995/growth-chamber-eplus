@@ -11,17 +11,17 @@
 ### To upgrade
 
 1. Current Model (simple isolated chamber):
-    - gc temperature sp: 15 to 35 °C
-    - Humidistat: 67% to 73% RH
-    - dsoa: Flow/Zone, 100 CFM -> 0.047 m3/s
+    - gc temperature sp: 20 °C， -+ 0.5 °C
+    - Humidistat: 72% to 78% RH
+    - dsoa: Flow/Zone, 100 CFM -> 0.047 m3/s, -> 0 m3/s
     - Geometry: Chamber
     - Material: 
         - https://www.betterhomesbc.ca/products/what-is-r-or-rsi-value/
         - Material:NoMass (R24 ft2*h*F/Btu - RSI 4.2 m2*K/W)
-    - Spray nozzle: 
+    - Spray nozzle (❌): 
         - Humidifier:Steam:Electric
         - 8.1 liters/hour -> 0.00000222 m3/s
-    - Chemical drier unit:
+    - Chemical drier unit (❌):
         - Regeneration Coil:Heating:Electric, 1200 W
         - Regeneration Fan:VariableVolume, 600 Pressure Rise, 1.3 Maximum Flow Rat, 0,7 Fan Total Efficiency
         - Fresh Air Intake with damper: <- indoor air
@@ -29,29 +29,44 @@
     - Chamber HVAC: 
         - HVACTemplate:Zone:PTAC
         - gc temperature sp
-        - Outdoor Air Method - DetailedSpecification - dsoa
+        - Outdoor Air Method - zero
         - Heating Coil Type - Electric - 2 kW
-        - lights: 1.07E+01 W/m2
+        - lights: 
+            - living wall lights (second tier)
+            - normal lights (third and top tiers)
         - Living Wall
             - PM method
             - DaylightControl1-1 ✅
-            - Total leaf area (m2): 20 ✅
-            - LED nominal intensity (umol/m2/s): 32.5 ✅
-            - LED nominal power (W): 640 ✅
             - Outputs:Evaporatranspiration rate (kg/s) ✅
-    - Chamber Outside boundary condition: Adiabatic (No heat transfer, but store heat in the thermal mass)
+    - Chamber Outside boundary condition: Adiabatic, NoSun, NoWind (No heat transfer, but store heat in the thermal mass)
     - Room HVAC: None
 
-2. Debugging
-    - outdoor air might be in fact indoor air within SI building，which means DesignSpecification:OutdoorAir should be removed.
-    - SI building growth chamber access
-    - lights: LED from spec to E+
-    - Change HVAC from PTAC to FanCoil (electricity power etc.)
-        - CX9041-WATER COOLED DX CONDENSING UNIT WITH HOT GAS SYSTEM FOR CONTINUOUS COMPRESSOR OPERATION AND TIGHT TEMPERATURE CONTROL
-            - ElectricCentrifugalChiller
-            - ❓NominalCOP (W/W): 3.2
-        - ❓CX9041-ASSY-AIR HANDLER UNIT, MT, DX COILS, 2X1000W HEATERS, 60HZ
-    - No Differences:
+2. 11/12/2024 Upgraded
+    - outdoor air might be in fact indoor air within SI building，which means DesignSpecification:OutdoorAir should be zero.
+    - Areas:
+        - Building area: 11.43 m2
+        - **Experimental area**: 1.5 m2
+        - Leaf area: 0.158 m2 * 72 = 11.376 m2 @ 300 PPFD, 0.256 m2 * 72 = 18.432 m2 @ 600 PPFD
+    - lights: 
+        - LED Specs
+            - https://fluence-led.com/products/ray-series/, Photon Flux (360-780 nm), Fluence Ray44 LED, Pfr (Pfr stands for a far red absorbing form, https://fluence-led.com/science-articles/guide-to-photo-morphogenesis/). Others: 84 W for one bar electricial specifications from https://fluence-led.com/wp-content/uploads/2019/11/70334C-RAY-Series-User-Manual-1812-1.pdf.
+            - 162 umol/s, 65 W (277 V AC power), 2.49 umol/J
+        - LivingWall-Lights (one module, in total 4 modules):
+            - Second Tier, 4 Fluence LED Modules, each module is: 
+            - Total leaf area: 0.158 m2 * 72 = 11.376 m2 @ 300 PPFD, 11.376 m2  * 4 = 45.504 m2
+            - PPFD: 3 bars * 162 umol/s / 1.5 m2 = 324 umol/m2/s (PPFD)
+            - LED Nominal Power: 3 bars * 65 W/bar = 195 W, 195 W * 4 = 780 W
+        - Normal Lights without living walls:
+            - Top tier: 1560 W
+            - Third tier: 780 W
+3. debugging
+    - Questions:
+    - How many lighting bars do we have at the second tier, each tier serving 4 modules/living walls/frames?
+        - I guess there are 3 bars per module, so 12 bars in 2nd tier. EACH FLUENCE LED MODULE CONTAINS 3—48”WX36"D LAMP CANOPIES WITH CLOSED LOOP DIMMING RAY44 OPEN LOOP DIMMING RAY44 PFR, ASSY-CANOPY,FLUENCE RAY44 LED, 4X PHYSIO, 2X PFR, WITH SUPPORT ARMS, lighting intensity: 500 micromoles.
+    - How many lighting bars do we have at the third and top tiers, each tier serving 4 modules/living walls/frames?
+        - Third tier: 4 modules * 3 bars per module * 65 W/bar = 780 W
+        - Top tier: doubled, 780 W * 2 = 1560 W
+    - Humidity control debugging:
         - Dehumidifier:Desiccant:NoFans
         - Humidifier:Steam:Electric
 
@@ -64,7 +79,7 @@ Lights,
     Always On Continuous,    !- Schedule Name
     Watts/Area,              !- Design Level Calculation Method
     ,                        !- Lighting Level {W}
-    10.6562713125426,        !- Watts per Floor Area {W/m2}
+    224,        !- Watts per Floor Area {W/m2}
     ,                        !- Watts per Person {W/person}
     ,                        !- Return Air Fraction
     ,                        !- Fraction Radiant
@@ -86,6 +101,52 @@ IndoorLivingWall,
     0.6;                     !- Radiant Fraction of LED Lights
 
 
+  SetpointManager:SingleZone:Humidity:Maximum,
+    dehumidifying manager,  !- Name
+    Mixed Air Node,          !- Setpoint Node or NodeList Name
+    Zone 2 Node;             !- Control Zone Air Node Name
+
+  SetpointManager:SingleZone:Humidity:Minimum,
+    humidifying manager,  !- Name
+    Air Loop Outlet Node,    !- Setpoint Node or NodeList Name
+    Zone 2 Node;             !- Control Zone Air Node Name
+
+  ZoneHVAC:EquipmentConnections,
+    EAST ZONE,               !- Zone Name
+    Zone2Equipment,          !- Zone Conditioning Equipment List Name
+    Zone2Inlets,             !- Zone Air Inlet Node or NodeList Name
+    ,                        !- Zone Air Exhaust Node or NodeList Name
+    Zone 2 Node,             !- Zone Air Node Name
+    Zone 2 Outlet Node;      !- Zone Return Air Node or NodeList Name
+
+
+Dehumidifier:Desiccant:NoFans,
+    drier,                   !- Name
+    ,                        !- Availability Schedule Name
+    Model Outdoor Air Node,  !- Process Air Inlet Node Name
+    humidifier outlet,       !- Process Air Outlet Node Name
+    Regen Coil Out Node,     !- Regeneration Air Inlet Node Name
+    Model Outdoor Air Node,  !- Regeneration Fan Inlet Node Name
+    LeavingMaximumHumidityRatioSetpoint,  !- Control Type
+    0.007,                   !- Leaving Maximum Humidity Ratio Setpoint {kgWater/kgDryAir}
+    1,                       !- Nominal Process Air Flow Rate {m3/s}
+    2.5,                     !- Nominal Process Air Velocity {m/s}
+    10,                      !- Rotor Power {W}
+    Coil:Heating:Electric,   !- Regeneration Coil Object Type
+    drier regen coil,        !- Regeneration Coil Name
+    Fan:VariableVolume,      !- Regeneration Fan Object Type
+    drier regen fan,         !- Regeneration Fan Name
+    DEFAULT;                 !- Performance Model Type
+
+Humidifier:Steam:Electric,
+    humidifier,              !- Name
+    ,                        !- Availability Schedule Name
+    0.00000222,              !- Rated Capacity {m3/s}
+    autosize,                !- Rated Power {W}
+    ,                        !- Rated Fan Power {W}
+    ,                        !- Standby Power {W}
+    humidifier air inlet,    !- Air Inlet Node Name
+    humidifier outlet;       !- Air Outlet Node Name
 
 HVACTemplate:Zone:PTAC,
     Thermal Zone 1,          !- Zone Name
@@ -128,42 +189,6 @@ HVACTemplate:Zone:PTAC,
     ,                        !- Baseboard Heating Availability Schedule Name
     autosize,                !- Baseboard Heating Capacity {W}
     None;                    !- Capacity Control Method
-
-
-Dehumidifier:Desiccant:NoFans,
-    drier,                   !- Name
-    ,                        !- Availability Schedule Name
-    Model Outdoor Air Node,  !- Process Air Inlet Node Name
-    humidifier outlet,       !- Process Air Outlet Node Name
-    Regen Coil Out Node,     !- Regeneration Air Inlet Node Name
-    Model Outdoor Air Node,  !- Regeneration Fan Inlet Node Name
-    LeavingMaximumHumidityRatioSetpoint,  !- Control Type
-    0.007,                   !- Leaving Maximum Humidity Ratio Setpoint {kgWater/kgDryAir}
-    1,                       !- Nominal Process Air Flow Rate {m3/s}
-    2.5,                     !- Nominal Process Air Velocity {m/s}
-    10,                      !- Rotor Power {W}
-    Coil:Heating:Electric,   !- Regeneration Coil Object Type
-    drier regen coil,        !- Regeneration Coil Name
-    Fan:VariableVolume,      !- Regeneration Fan Object Type
-    drier regen fan,         !- Regeneration Fan Name
-    DEFAULT;                 !- Performance Model Type
-
-Humidifier:Steam:Electric,
-    humidifier,              !- Name
-    ,                        !- Availability Schedule Name
-    0.00000222,              !- Rated Capacity {m3/s}
-    autosize,                !- Rated Power {W}
-    ,                        !- Rated Fan Power {W}
-    ,                        !- Standby Power {W}
-    humidifier air inlet,    !- Air Inlet Node Name
-    humidifier outlet;       !- Air Outlet Node Name
-
-DesignSpecification:OutdoorAir,
-    dsoa,                    !- Name
-    Flow/Zone,               !- Outdoor Air Method
-    ,                        !- Outdoor Air Flow per Person {m3/s-person}
-    ,                        !- Outdoor Air Flow per Zone Floor Area {m3/s-m2}
-    0.047;                   !- Outdoor Air Flow per Zone {m3/s}
 
 ZoneControl:Humidistat,
     humidity sp,             !- Name

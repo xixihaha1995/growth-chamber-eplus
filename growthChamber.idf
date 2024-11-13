@@ -17,7 +17,7 @@ SimulationControl,
     Yes,                     !- Do Zone Sizing Calculation
     No,                      !- Do System Sizing Calculation
     No,                      !- Do Plant Sizing Calculation
-    No,                     !- Run Simulation for Sizing Periods
+    No,                      !- Run Simulation for Sizing Periods
     Yes,                     !- Run Simulation for Weather File Run Periods
     ,                        !- Do HVAC Sizing Simulation for Sizing Periods
     ;                        !- Maximum Number of HVAC Sizing Simulation Passes
@@ -132,19 +132,26 @@ RunPeriod,
 
 !-   ===========  ALL OBJECTS IN CLASS: SCHEDULETYPELIMITS ===========
 
-!-   ===========  ALL OBJECTS IN CLASS: SCHEDULE:COMPACT ===========
+ScheduleTypeLimits,
+    Humidity,                !- Name
+    0,                       !- Lower Limit Value
+    100,                     !- Upper Limit Value
+    CONTINUOUS;              !- Numeric Type
 
-Schedule:Compact,
-    LightingTarget,          !- Name
-    Any Number,              !- Schedule Type Limits Name
-    Through: 12/31,          !- Field 1
-    For: AllDays,            !- Field 2
-    Until: 7:00,             !- Field 3
-    0,                       !- Field 4
-    Until: 19:00,            !- Field 5
-    32.5,                    !- Field 6
-    Until: 24:00,            !- Field 7
-    0;                       !- Field 8
+ScheduleTypeLimits,
+    Fractional 1,            !- Name
+    0,                       !- Lower Limit Value
+    1,                       !- Upper Limit Value
+    Continuous;              !- Numeric Type
+
+ScheduleTypeLimits,
+    OnOff,                   !- Name
+    0,                       !- Lower Limit Value
+    1,                       !- Upper Limit Value
+    Discrete;                !- Numeric Type
+
+
+!-   ===========  ALL OBJECTS IN CLASS: SCHEDULE:COMPACT ===========
 
 Schedule:Compact,
     humidifying Relative Humidity Sch,  !- Name
@@ -152,7 +159,7 @@ Schedule:Compact,
     Through: 12/31,          !- Field 1
     For: Alldays,            !- Field 2
     Until: 24:00,            !- Field 3
-    67.0;                    !- Field 4
+    72.0;                    !- Field 4
 
 Schedule:Compact,
     dehumidifying Relative Humidity Sch,  !- Name
@@ -160,14 +167,14 @@ Schedule:Compact,
     Through: 12/31,          !- Field 1
     For: Alldays,            !- Field 2
     Until: 24:00,            !- Field 3
-    73.0;                    !- Field 4
+    78.0;                    !- Field 4
 
 
 !-   ===========  ALL OBJECTS IN CLASS: SCHEDULE:CONSTANT ===========
 
 Schedule:Constant,
     Always On Discrete,      !- Name
-    Always On Discrete Limits,  !- Schedule Type Limits Name
+    OnOff,                   !- Schedule Type Limits Name
     1;                       !- Hourly Value
 
 Schedule:Constant,
@@ -510,6 +517,7 @@ Construction,
     F04 Wall air space resistance,  !- Layer 2
     G01a 19mm gypsum board;  !- Layer 3
 
+
 !-   ===========  ALL OBJECTS IN CLASS: CONSTRUCTION:AIRBOUNDARY ===========
 
 Construction:AirBoundary,
@@ -575,8 +583,8 @@ BuildingSurface:Detailed,
     Space 101,               !- Space Name
     Adiabatic,               !- Outside Boundary Condition
     ,                        !- Outside Boundary Condition Object
-    SunExposed,              !- Sun Exposure
-    WindExposed,             !- Wind Exposure
+    NoSun,                   !- Sun Exposure
+    NoWind,                  !- Wind Exposure
     ,                        !- View Factor to Ground
     ,                        !- Number of Vertices
     0,                       !- Vertex 1 X-coordinate {m}
@@ -625,8 +633,8 @@ BuildingSurface:Detailed,
     Space 101,               !- Space Name
     Adiabatic,               !- Outside Boundary Condition
     ,                        !- Outside Boundary Condition Object
-    SunExposed,              !- Sun Exposure
-    WindExposed,             !- Wind Exposure
+    NoSun,                   !- Sun Exposure
+    NoWind,                  !- Wind Exposure
     ,                        !- View Factor to Ground
     ,                        !- Number of Vertices
     -3.2385,                 !- Vertex 1 X-coordinate {m}
@@ -650,8 +658,8 @@ BuildingSurface:Detailed,
     Space 101,               !- Space Name
     Adiabatic,               !- Outside Boundary Condition
     ,                        !- Outside Boundary Condition Object
-    SunExposed,              !- Sun Exposure
-    WindExposed,             !- Wind Exposure
+    NoSun,                   !- Sun Exposure
+    NoWind,                  !- Wind Exposure
     ,                        !- View Factor to Ground
     ,                        !- Number of Vertices
     -3.2385,                 !- Vertex 1 X-coordinate {m}
@@ -675,8 +683,8 @@ BuildingSurface:Detailed,
     Space 101,               !- Space Name
     Adiabatic,               !- Outside Boundary Condition
     ,                        !- Outside Boundary Condition Object
-    SunExposed,              !- Sun Exposure
-    WindExposed,             !- Wind Exposure
+    NoSun,                   !- Sun Exposure
+    NoWind,                  !- Wind Exposure
     ,                        !- View Factor to Ground
     ,                        !- Number of Vertices
     0,                       !- Vertex 1 X-coordinate {m}
@@ -700,8 +708,8 @@ BuildingSurface:Detailed,
     Space 101,               !- Space Name
     Adiabatic,               !- Outside Boundary Condition
     ,                        !- Outside Boundary Condition Object
-    SunExposed,              !- Sun Exposure
-    WindExposed,             !- Wind Exposure
+    NoSun,                   !- Sun Exposure
+    NoWind,                  !- Wind Exposure
     ,                        !- View Factor to Ground
     ,                        !- Number of Vertices
     0,                       !- Vertex 1 X-coordinate {m}
@@ -720,7 +728,35 @@ BuildingSurface:Detailed,
 
 !-   ===========  ALL OBJECTS IN CLASS: LIGHTS ===========
 
+Lights,
+    all normal led lights without living walls,  !- Name
+    Thermal Zone 1,          !- Zone or ZoneList or Space or SpaceList Name
+    Always On Continuous,    !- Schedule Name
+    LightingLevel,           !- Design Level Calculation Method
+    2340,                    !- Lighting Level {W}
+    ,                        !- Watts per Floor Area {W/m2}
+    ,                        !- Watts per Person {W/person}
+    ,                        !- Return Air Fraction
+    ,                        !- Fraction Radiant
+    ,                        !- Fraction Visible
+    ;                        !- Fraction Replaceable
 
+
+!-   ===========  ALL OBJECTS IN CLASS: INDOORLIVINGWALL ===========
+
+IndoorLivingWall,
+    4 sets of gc living wall,!- Name
+    Floor,                   !- Surface Name
+    Always On Continuous,    !- Schedule Name
+    Penman-Monteith,         !- Evapotranspiration Calculation Method
+    LED,                     !- Lighting Method
+    Always On Continuous,    !- LED Intensity Schedule Name
+    DaylightControl1-1,      !- Daylighting Control Name
+    ,                        !- LED-Daylight Targeted Lighting Intensity Schedule Name
+    45.504,                  !- Total Leaf Area {m2}
+    324,                     !- LED Nominal Intensity {umol/m2-s}
+    780,                     !- LED Nominal Power {W}
+    0.6;                     !- Radiant Fraction of LED Lights
 
 
 !-   ===========  ALL OBJECTS IN CLASS: DAYLIGHTING:CONTROLS ===========
@@ -737,11 +773,11 @@ Daylighting:Controls,
     1,                       !- Probability Lighting will be Reset When Needed in Manual Stepped Control
     ,                        !- Glare Calculation Daylighting Reference Point Name
     ,                        !- Glare Calculation Azimuth Angle of View Direction Clockwise from Zone y-Axis {deg}
-    20,                      !- Maximum Allowable Discomfort Glare Index
+    ,                        !- Maximum Allowable Discomfort Glare Index
     ,                        !- DElight Gridding Resolution {m2}
     ReferenceSouthPartition, !- Daylighting Reference Point 1 Name
     1,                       !- Fraction of Lights Controlled by Reference Point 1
-    0;                       !- Illuminance Setpoint at Reference Point 1 {lux}
+    500;                     !- Illuminance Setpoint at Reference Point 1 {lux}
 
 
 !-   ===========  ALL OBJECTS IN CLASS: DAYLIGHTING:REFERENCEPOINT ===========
@@ -759,9 +795,64 @@ Daylighting:ReferencePoint,
 HVACTemplate:Thermostat,
     gc temperature sp,       !- Name
     ,                        !- Heating Setpoint Schedule Name
-    15,                      !- Constant Heating Setpoint {C}
+    19.5,                    !- Constant Heating Setpoint {C}
     ,                        !- Cooling Setpoint Schedule Name
-    35;                      !- Constant Cooling Setpoint {C}
+    20.5;                    !- Constant Cooling Setpoint {C}
+
+
+!-   ===========  ALL OBJECTS IN CLASS: HVACTEMPLATE:ZONE:PTAC ===========
+
+HVACTemplate:Zone:PTAC,
+    Thermal Zone 1,          !- Zone Name
+    gc temperature sp,       !- Template Thermostat Name
+    autosize,                !- Cooling Supply Air Flow Rate {m3/s}
+    autosize,                !- Heating Supply Air Flow Rate {m3/s}
+    ,                        !- No Load Supply Air Flow Rate {m3/s}
+    ,                        !- Zone Heating Sizing Factor
+    ,                        !- Zone Cooling Sizing Factor
+    DetailedSpecification,   !- Outdoor Air Method
+    ,                        !- Outdoor Air Flow Rate per Person {m3/s}
+    ,                        !- Outdoor Air Flow Rate per Zone Floor Area {m3/s-m2}
+    0,                       !- Outdoor Air Flow Rate per Zone {m3/s}
+    ,                        !- System Availability Schedule Name
+    ,                        !- Supply Fan Operating Mode Schedule Name
+    DrawThrough,             !- Supply Fan Placement
+    0.7,                     !- Supply Fan Total Efficiency
+    75,                      !- Supply Fan Delta Pressure {Pa}
+    0.9,                     !- Supply Fan Motor Efficiency
+    SingleSpeedDX,           !- Cooling Coil Type
+    ,                        !- Cooling Coil Availability Schedule Name
+    autosize,                !- Cooling Coil Gross Rated Total Capacity {W}
+    autosize,                !- Cooling Coil Gross Rated Sensible Heat Ratio
+    3,                       !- Cooling Coil Gross Rated Cooling COP {W/W}
+    Electric,                !- Heating Coil Type
+    ,                        !- Heating Coil Availability Schedule Name
+    2000,                    !- Heating Coil Capacity {W}
+    0.8,                     !- Gas Heating Coil Efficiency
+    ,                        !- Gas Heating Coil Parasitic Electric Load {W}
+    ,                        !- Dedicated Outdoor Air System Name
+    SupplyAirTemperature,    !- Zone Cooling Design Supply Air Temperature Input Method
+    14,                      !- Zone Cooling Design Supply Air Temperature {C}
+    11.11,                   !- Zone Cooling Design Supply Air Temperature Difference {deltaC}
+    SupplyAirTemperature,    !- Zone Heating Design Supply Air Temperature Input Method
+    50,                      !- Zone Heating Design Supply Air Temperature {C}
+    30,                      !- Zone Heating Design Supply Air Temperature Difference {deltaC}
+    dsoa,                    !- Design Specification Outdoor Air Object Name
+    ,                        !- Design Specification Zone Air Distribution Object Name
+    None,                    !- Baseboard Heating Type
+    ,                        !- Baseboard Heating Availability Schedule Name
+    autosize,                !- Baseboard Heating Capacity {W}
+    None;                    !- Capacity Control Method
+
+
+!-   ===========  ALL OBJECTS IN CLASS: DESIGNSPECIFICATION:OUTDOORAIR ===========
+
+DesignSpecification:OutdoorAir,
+    dsoa,                    !- Name
+    Flow/Zone,               !- Outdoor Air Method
+    ,                        !- Outdoor Air Flow per Person {m3/s-person}
+    ,                        !- Outdoor Air Flow per Zone Floor Area {m3/s-m2}
+    0;                       !- Outdoor Air Flow per Zone {m3/s}
 
 
 !-   ===========  ALL OBJECTS IN CLASS: SIZING:PARAMETERS ===========
@@ -771,13 +862,11 @@ Sizing:Parameters,
     1.15;                    !- Cooling Sizing Factor
 
 
-
-
-
 !-   ===========  ALL OBJECTS IN CLASS: OUTDOORAIR:NODE ===========
 
 OutdoorAir:Node,
     Model Outdoor Air Node;  !- Name
+
 
 !-   ===========  ALL OBJECTS IN CLASS: OUTPUT:VARIABLEDICTIONARY ===========
 
@@ -813,6 +902,61 @@ Output:Variable,
 Output:Variable,
     *,                       !- Key Value
     Indoor Living Wall Evapotranspiration Rate ,  !- Variable Name
+    Timestep;                !- Reporting Frequency
+
+Output:Variable,
+    *,                       !- Key Value
+    Zone Total Internal Total Heating Energy,  !- Variable Name
+    Timestep;                !- Reporting Frequency
+
+Output:Variable,
+    *,                       !- Key Value
+    Lights Electricity Rate, !- Variable Name
+    TIMESTEP;                !- Reporting Frequency
+
+Output:Variable,
+    *,                       !- Key Value
+    Zone Total Internal Radiant Heating Energy,  !- Variable Name
+    Timestep;                !- Reporting Frequency
+
+Output:Variable,
+    *,                       !- Key Value
+    Zone Total Internal Visible Radiation Heating Energy,  !- Variable Name
+    Timestep;                !- Reporting Frequency
+
+Output:Variable,
+    *,                       !- Key Value
+    Zone Packaged Terminal Air Conditioner Total Heating Rate,  !- Variable Name
+    Timestep;                !- Reporting Frequency
+
+Output:Variable,
+    *,                       !- Key Value
+    Zone Packaged Terminal Air Conditioner Total Cooling Rate,  !- Variable Name
+    Timestep;                !- Reporting Frequency
+
+Output:Variable,
+    *,                       !- Key Value
+    Zone Packaged Terminal Air Conditioner Sensible Heating Rate,  !- Variable Name
+    Timestep;                !- Reporting Frequency
+
+Output:Variable,
+    *,                       !- Key Value
+    Zone Packaged Terminal Air Conditioner Sensible Cooling Rate,  !- Variable Name
+    Timestep;                !- Reporting Frequency
+
+Output:Variable,
+    *,                       !- Key Value
+    Zone Packaged Terminal Air Conditioner Latent Heating Rate,  !- Variable Name
+    Timestep;                !- Reporting Frequency
+
+Output:Variable,
+    *,                       !- Key Value
+    Zone Packaged Terminal Air Conditioner Latent Cooling Rate,  !- Variable Name
+    Timestep;                !- Reporting Frequency
+
+Output:Variable,
+    *,                       !- Key Value
+    Zone Packaged Terminal Air Conditioner Electricity Rate,  !- Variable Name
     Timestep;                !- Reporting Frequency
 
 
