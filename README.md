@@ -1,16 +1,8 @@
-### To delete
-
-1. People
-2. Electric Equipment
-
-### To modify
-
-1. Outside boundary condition
-    - Outdoors -> Adiabatic
-
 ### To upgrade
 
 1. Current Model (simple isolated chamber):
+    - Chamber Outside boundary condition: Adiabatic, NoSun, NoWind (No heat transfer, but store heat in the thermal mass)
+    - no people, no electric equipment
     - gc temperature sp: 20 °C， -+ 0.5 °C
     - Humidistat: 72% to 78% RH
     - dsoa: Flow/Zone, 100 CFM -> 0.047 m3/s, -> 0 m3/s
@@ -38,7 +30,6 @@
             - PM method
             - DaylightControl1-1 ✅
             - Outputs:Evaporatranspiration rate (kg/s) ✅
-    - Chamber Outside boundary condition: Adiabatic, NoSun, NoWind (No heat transfer, but store heat in the thermal mass)
     - Room HVAC: None
 
 2. 11/12/2024 Upgraded
