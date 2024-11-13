@@ -764,21 +764,32 @@ Lights,
     ,                        !- Fraction Visible
     ;                        !- Fraction Replaceable
 
-
+Lights,
+    4 sets of living walls led lights,  !- Name
+    Thermal Zone 1,          !- Zone or ZoneList or Space or SpaceList Name
+    Always On Discrete,     !- Schedule Name
+    LightingLevel,           !- Design Level Calculation Method
+    1040,                    !- Lighting Level {W}
+    ,                        !- Watts per Floor Area {W/m2}
+    ,                        !- Watts per Person {W/person}
+    ,                        !- Return Air Fraction
+    ,                        !- Fraction Radiant
+    ,                        !- Fraction Visible
+    ;                        !- Fraction Replaceable
 !-   ===========  ALL OBJECTS IN CLASS: INDOORLIVINGWALL ===========
 
 IndoorLivingWall,
-    4 sets of gc living wall,!- Name
+    4 sets of living wall no lights,!- Name
     Floor,                   !- Surface Name
     Always On Discrete,      !- Schedule Name
     Penman-Monteith,         !- Evapotranspiration Calculation Method
     LED,                     !- Lighting Method
-    on12off12,               !- LED Intensity Schedule Name
+    Always On Discrete,               !- LED Intensity Schedule Name
     DaylightControl1-1,      !- Daylighting Control Name
     ,                        !- LED-Daylight Targeted Lighting Intensity Schedule Name
     45,                      !- Total Leaf Area {m2}
     432,                     !- LED Nominal Intensity {umol/m2-s}
-    1040,                     !- LED Nominal Power {W}
+    0,                     !- LED Nominal Power {W}
     0.6;                     !- Radiant Fraction of LED Lights
 
 
