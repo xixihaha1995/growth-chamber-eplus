@@ -150,6 +150,9 @@ ScheduleTypeLimits,
     1,                       !- Upper Limit Value
     Discrete;                !- Numeric Type
 
+ScheduleTypeLimits,
+    Any Number;              !- Name
+
 
 !-   ===========  ALL OBJECTS IN CLASS: SCHEDULE:COMPACT ===========
 
@@ -168,6 +171,26 @@ Schedule:Compact,
     For: Alldays,            !- Field 2
     Until: 24:00,            !- Field 3
     78.0;                    !- Field 4
+
+Schedule:Compact,
+    on12off12,               !- Name
+    Any Number,              !- Schedule Type Limits Name
+    THROUGH: 12/31,          !- Field 1
+    FOR: AllDays,            !- Field 2
+    UNTIL: 12:00,            !- Field 3
+    0,                       !- Field 4
+    Until: 24:00,            !- Field 5
+    1;                       !- Field 6
+
+Schedule:Compact,
+    on16off8,                !- Name
+    Any Number,              !- Schedule Type Limits Name
+    THROUGH: 12/31,          !- Field 1
+    FOR: AllDays,            !- Field 2
+    UNTIL: 16:00,            !- Field 3
+    1,                       !- Field 4
+    Until: 24:00,            !- Field 5
+    0;                       !- Field 6
 
 
 !-   ===========  ALL OBJECTS IN CLASS: SCHEDULE:CONSTANT ===========
@@ -750,7 +773,7 @@ IndoorLivingWall,
     Always On Continuous,    !- Schedule Name
     Penman-Monteith,         !- Evapotranspiration Calculation Method
     LED,                     !- Lighting Method
-    Always On Continuous,    !- LED Intensity Schedule Name
+    on12off12,               !- LED Intensity Schedule Name
     DaylightControl1-1,      !- Daylighting Control Name
     ,                        !- LED-Daylight Targeted Lighting Intensity Schedule Name
     45.504,                  !- Total Leaf Area {m2}
