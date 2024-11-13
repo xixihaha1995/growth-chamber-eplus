@@ -45,11 +45,13 @@
         - LivingWall-Lights (one module, in total 4 modules):
             - Second Tier, 4 Fluence LED Modules, each module is: 
             - Total leaf area: 0.158 m2 * 72 = 11.376 m2 @ 300 PPFD, 11.376 m2  * 4 = 45.504 m2
-            - PPFD: 3 bars * 162 umol/s / 1.5 m2 = 324 umol/m2/s (PPFD)
-            - LED Nominal Power: 3 bars * 65 W/bar = 195 W, 195 W * 4 = 780 W
+            - PPFD: 4 bars * 162 umol/s / 1.5 m2 = 432 umol/m2/s (PPFD)
+            - LED Nominal Power: 4 bars * 65 W/bar = 260 W, 260 W * 4 = 1040 W
         - Normal Lights without living walls:
-            - Top tier: 1560 W
-            - Third tier: 780 W
+            - Top tier: 2080 W
+            - Third tier: 1040 W
+        - LivingWall: LED = 0, PPFD works well the LED intensity schedule (ET process)
+        - Normal lights = 780 W (with on12off12)
 3. debugging
     - Questions:
     - How many lighting bars do we have at the second tier, each tier serving 4 modules/living walls/frames?

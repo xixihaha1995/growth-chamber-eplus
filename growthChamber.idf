@@ -180,7 +180,7 @@ Schedule:Compact,
     UNTIL: 12:00,            !- Field 3
     0,                       !- Field 4
     Until: 24:00,            !- Field 5
-    1;                       !- Field 6
+     .5;                     !- Field 6
 
 Schedule:Compact,
     on16off8,                !- Name
@@ -756,7 +756,7 @@ Lights,
     Thermal Zone 1,          !- Zone or ZoneList or Space or SpaceList Name
     Always Off Discrete,     !- Schedule Name
     LightingLevel,           !- Design Level Calculation Method
-    2340,                    !- Lighting Level {W}
+    3120,                    !- Lighting Level {W}
     ,                        !- Watts per Floor Area {W/m2}
     ,                        !- Watts per Person {W/person}
     ,                        !- Return Air Fraction
@@ -770,16 +770,17 @@ Lights,
 IndoorLivingWall,
     4 sets of gc living wall,!- Name
     Floor,                   !- Surface Name
-    Always On Continuous,    !- Schedule Name
+    Always On Discrete,      !- Schedule Name
     Penman-Monteith,         !- Evapotranspiration Calculation Method
     LED,                     !- Lighting Method
     on12off12,               !- LED Intensity Schedule Name
     DaylightControl1-1,      !- Daylighting Control Name
     ,                        !- LED-Daylight Targeted Lighting Intensity Schedule Name
-    45.504,                  !- Total Leaf Area {m2}
-    324,                     !- LED Nominal Intensity {umol/m2-s}
-    780,                     !- LED Nominal Power {W}
+    45,                      !- Total Leaf Area {m2}
+    432,                     !- LED Nominal Intensity {umol/m2-s}
+    1040,                     !- LED Nominal Power {W}
     0.6;                     !- Radiant Fraction of LED Lights
+
 
 
 !-   ===========  ALL OBJECTS IN CLASS: DAYLIGHTING:CONTROLS ===========
@@ -808,7 +809,7 @@ Daylighting:Controls,
 Daylighting:ReferencePoint,
     ReferenceSouthPartition, !- Name
     Thermal Zone 1,          !- Zone or Space Name
-    1,                       !- X-Coordinate of Reference Point {m}
+    -1,                       !- X-Coordinate of Reference Point {m}
     1,                       !- Y-Coordinate of Reference Point {m}
     1;                       !- Z-Coordinate of Reference Point {m}
 
