@@ -17,7 +17,8 @@
 *.dbg
 *.end
 *.idd
-*.R*
+*.RData
+*.Rhistory
 *.expidf
 *.csv
 *.htm
