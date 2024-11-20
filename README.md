@@ -54,14 +54,10 @@
         - Normal lights = 780 W (with on12off12)
 3. debugging
     - Questions:
-    - How many lighting bars do we have at the second tier, each tier serving 4 modules/living walls/frames?
-        - I guess there are 3 bars per module, so 12 bars in 2nd tier. EACH FLUENCE LED MODULE CONTAINS 3—48”WX36"D LAMP CANOPIES WITH CLOSED LOOP DIMMING RAY44 OPEN LOOP DIMMING RAY44 PFR, ASSY-CANOPY,FLUENCE RAY44 LED, 4X PHYSIO, 2X PFR, WITH SUPPORT ARMS, lighting intensity: 500 micromoles.
-    - How many lighting bars do we have at the third and top tiers, each tier serving 4 modules/living walls/frames?
-        - Third tier: 4 modules * 3 bars per module * 65 W/bar = 780 W
-        - Top tier: doubled, 780 W * 2 = 1560 W
     - Humidity control debugging:
         - Dehumidifier:Desiccant:NoFans
         - Humidifier:Steam:Electric
+    - Convert PPFD to LED interior lighting power consumption.
 
 
 3. copy and paste
@@ -140,6 +136,39 @@ Humidifier:Steam:Electric,
     ,                        !- Standby Power {W}
     humidifier air inlet,    !- Air Inlet Node Name
     humidifier outlet;       !- Air Outlet Node Name
+
+HVACTemplate:Zone:IdealLoadsAirSystem,
+    Thermal Zone 1,          !- Zone Name
+    gc temperature sp,       !- Template Thermostat Name
+    ,                        !- System Availability Schedule Name
+    50,                      !- Maximum Heating Supply Air Temperature {C}
+    13,                      !- Minimum Cooling Supply Air Temperature {C}
+    0.0156,                  !- Maximum Heating Supply Air Humidity Ratio {kgWater/kgDryAir}
+    0.0077,                  !- Minimum Cooling Supply Air Humidity Ratio {kgWater/kgDryAir}
+    NoLimit,                 !- Heating Limit
+    ,                        !- Maximum Heating Air Flow Rate {m3/s}
+    ,                        !- Maximum Sensible Heating Capacity {W}
+    NoLimit,                 !- Cooling Limit
+    ,                        !- Maximum Cooling Air Flow Rate {m3/s}
+    ,                        !- Maximum Total Cooling Capacity {W}
+    ,                        !- Heating Availability Schedule Name
+    ,                        !- Cooling Availability Schedule Name
+    Humidistat,              !- Dehumidification Control Type
+    0.7,                     !- Cooling Sensible Heat Ratio {dimensionless}
+    78,                      !- Dehumidification Setpoint {percent}
+    Humidistat,              !- Humidification Control Type
+    72,                      !- Humidification Setpoint {percent}
+    None,                    !- Outdoor Air Method
+    ,                 !- Outdoor Air Flow Rate per Person {m3/s}
+    ,                        !- Outdoor Air Flow Rate per Zone Floor Area {m3/s-m2}
+    ,                        !- Outdoor Air Flow Rate per Zone {m3/s}
+    ,                        !- Design Specification Outdoor Air Object Name
+    None,                    !- Demand Controlled Ventilation Type
+    NoEconomizer,            !- Outdoor Air Economizer Type
+    None,                    !- Heat Recovery Type
+    0.7,                     !- Sensible Heat Recovery Effectiveness {dimensionless}
+    0.65;                    !- Latent Heat Recovery Effectiveness {dimensionless}
+
 
 HVACTemplate:Zone:PTAC,
     Thermal Zone 1,          !- Zone Name
