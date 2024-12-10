@@ -37,16 +37,16 @@
     - Areas:
         - Building area: 11.43 m2
         - **Experimental area**: 1.5 m2
-        - Leaf area: 0.158 m2 * 72 = 11.376 m2 @ 300 PPFD, 0.256 m2 * 72 = 18.432 m2 @ 600 PPFD
+        - Leaf area: 0.158 m2 per stem * 72 stems = 11.376 m2 @ 300 PPFD, 0.256 m2 per stem * 72 stems = 18.432 m2 @ 600 PPFD
     - lights: 
         - LED Specs
             - https://fluence-led.com/products/ray-series/, Photon Flux (360-780 nm), Fluence Ray44 LED, Pfr (Pfr stands for a far red absorbing form, https://fluence-led.com/science-articles/guide-to-photo-morphogenesis/). Others: 84 W for one bar electricial specifications from https://fluence-led.com/wp-content/uploads/2019/11/70334C-RAY-Series-User-Manual-1812-1.pdf.
             - 162 umol/s, 65 W (277 V AC power), 2.49 umol/J
         - LivingWall-Lights (one module, in total 4 modules):
             - Second Tier, 4 Fluence LED Modules, each module is: 
-            - Total leaf area: 0.158 m2 * 72 = 11.376 m2 @ 300 PPFD, 11.376 m2  * 4 = 45.504 m2
+            - Total leaf area: 0.158 m2 per stem * 72 stems = 11.376 m2 @ 300 PPFD, 11.376 m2  * 4 modules = 45.504 m2
             - PPFD: 4 bars * 162 umol/s / 1.5 m2 = 432 umol/m2/s (PPFD)
-            - LED Nominal Power: 4 bars * 65 W/bar = 260 W, 260 W * 4 = 1040 W
+            - LED Nominal Power: 4 bars * 65 W/bar = 260 W, 260 W * 4 modules = 1040 W
         - Normal Lights without living walls:
             - Top tier: 2080 W
             - Third tier: 1040 W

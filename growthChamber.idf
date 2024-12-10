@@ -781,7 +781,7 @@ Lights,
 IndoorLivingWall,
     4 sets of living wall no lights,!- Name
     Floor,                   !- Surface Name
-    Always On Discrete,      !- Schedule Name
+    on12off12,      !- Schedule Name
     Penman-Monteith,         !- Evapotranspiration Calculation Method
     LED,                     !- Lighting Method
     Always On Discrete,               !- LED Intensity Schedule Name
@@ -837,79 +837,79 @@ HVACTemplate:Thermostat,
 
 !-   ===========  ALL OBJECTS IN CLASS: HVACTEMPLATE:ZONE:PTAC ===========
 
-HVACTemplate:Zone:IdealLoadsAirSystem,
-    Thermal Zone 1,          !- Zone Name
-    gc temperature sp,       !- Template Thermostat Name
-    ,                        !- System Availability Schedule Name
-    50,                      !- Maximum Heating Supply Air Temperature {C}
-    13,                      !- Minimum Cooling Supply Air Temperature {C}
-    0.0156,                  !- Maximum Heating Supply Air Humidity Ratio {kgWater/kgDryAir}
-    0.0077,                  !- Minimum Cooling Supply Air Humidity Ratio {kgWater/kgDryAir}
-    NoLimit,                 !- Heating Limit
-    ,                        !- Maximum Heating Air Flow Rate {m3/s}
-    ,                        !- Maximum Sensible Heating Capacity {W}
-    NoLimit,                 !- Cooling Limit
-    ,                        !- Maximum Cooling Air Flow Rate {m3/s}
-    ,                        !- Maximum Total Cooling Capacity {W}
-    ,                        !- Heating Availability Schedule Name
-    ,                        !- Cooling Availability Schedule Name
-    Humidistat,              !- Dehumidification Control Type
-    0.7,                     !- Cooling Sensible Heat Ratio {dimensionless}
-    78,                      !- Dehumidification Setpoint {percent}
-    Humidistat,              !- Humidification Control Type
-    72,                      !- Humidification Setpoint {percent}
-    None,                    !- Outdoor Air Method
-    ,                 !- Outdoor Air Flow Rate per Person {m3/s}
-    ,                        !- Outdoor Air Flow Rate per Zone Floor Area {m3/s-m2}
-    ,                        !- Outdoor Air Flow Rate per Zone {m3/s}
-    ,                        !- Design Specification Outdoor Air Object Name
-    None,                    !- Demand Controlled Ventilation Type
-    NoEconomizer,            !- Outdoor Air Economizer Type
-    None,                    !- Heat Recovery Type
-    0.7,                     !- Sensible Heat Recovery Effectiveness {dimensionless}
-    0.65;                    !- Latent Heat Recovery Effectiveness {dimensionless}
-
-!-HVACTemplate:Zone:PTAC,
+!-HVACTemplate:Zone:IdealLoadsAirSystem,
 !-    Thermal Zone 1,          !- Zone Name
 !-    gc temperature sp,       !- Template Thermostat Name
-!-    autosize,                !- Cooling Supply Air Flow Rate {m3/s}
-!-    autosize,                !- Heating Supply Air Flow Rate {m3/s}
-!-    ,                        !- No Load Supply Air Flow Rate {m3/s}
-!-    ,                        !- Zone Heating Sizing Factor
-!-    ,                        !- Zone Cooling Sizing Factor
-!-    DetailedSpecification,   !- Outdoor Air Method
-!-    ,                        !- Outdoor Air Flow Rate per Person {m3/s}
-!-    ,                        !- Outdoor Air Flow Rate per Zone Floor Area {m3/s-m2}
-!-    0,                       !- Outdoor Air Flow Rate per Zone {m3/s}
 !-    ,                        !- System Availability Schedule Name
-!-    ,                        !- Supply Fan Operating Mode Schedule Name
-!-    DrawThrough,             !- Supply Fan Placement
-!-    0.7,                     !- Supply Fan Total Efficiency
-!-    75,                      !- Supply Fan Delta Pressure {Pa}
-!-    0.9,                     !- Supply Fan Motor Efficiency
-!-    SingleSpeedDX,           !- Cooling Coil Type
-!-    ,                        !- Cooling Coil Availability Schedule Name
-!-    autosize,                !- Cooling Coil Gross Rated Total Capacity {W}
-!-    autosize,                !- Cooling Coil Gross Rated Sensible Heat Ratio
-!-    3,                       !- Cooling Coil Gross Rated Cooling COP {W/W}
-!-    Electric,                !- Heating Coil Type
-!-    ,                        !- Heating Coil Availability Schedule Name
-!-    2000,                    !- Heating Coil Capacity {W}
-!-    0.8,                     !- Gas Heating Coil Efficiency
-!-    ,                        !- Gas Heating Coil Parasitic Electric Load {W}
-!-    ,                        !- Dedicated Outdoor Air System Name
-!-    SupplyAirTemperature,    !- Zone Cooling Design Supply Air Temperature Input Method
-!-    14,                      !- Zone Cooling Design Supply Air Temperature {C}
-!-    11.11,                   !- Zone Cooling Design Supply Air Temperature Difference {deltaC}
-!-    SupplyAirTemperature,    !- Zone Heating Design Supply Air Temperature Input Method
-!-    50,                      !- Zone Heating Design Supply Air Temperature {C}
-!-    30,                      !- Zone Heating Design Supply Air Temperature Difference {deltaC}
-!-    dsoa,                    !- Design Specification Outdoor Air Object Name
-!-    ,                        !- Design Specification Zone Air Distribution Object Name
-!-    None,                    !- Baseboard Heating Type
-!-    ,                        !- Baseboard Heating Availability Schedule Name
-!-    autosize,                !- Baseboard Heating Capacity {W}
-!-    None;                    !- Capacity Control Method
+!-    50,                      !- Maximum Heating Supply Air Temperature {C}
+!-    13,                      !- Minimum Cooling Supply Air Temperature {C}
+!-    0.0156,                  !- Maximum Heating Supply Air Humidity Ratio {kgWater/kgDryAir}
+!-    0.0077,                  !- Minimum Cooling Supply Air Humidity Ratio {kgWater/kgDryAir}
+!-    NoLimit,                 !- Heating Limit
+!-    ,                        !- Maximum Heating Air Flow Rate {m3/s}
+!-    ,                        !- Maximum Sensible Heating Capacity {W}
+!-    NoLimit,                 !- Cooling Limit
+!-    ,                        !- Maximum Cooling Air Flow Rate {m3/s}
+!-    ,                        !- Maximum Total Cooling Capacity {W}
+!-    ,                        !- Heating Availability Schedule Name
+!-    ,                        !- Cooling Availability Schedule Name
+!-    Humidistat,              !- Dehumidification Control Type
+!-    0.7,                     !- Cooling Sensible Heat Ratio {dimensionless}
+!-    78,                      !- Dehumidification Setpoint {percent}
+!-    Humidistat,              !- Humidification Control Type
+!-    72,                      !- Humidification Setpoint {percent}
+!-    None,                    !- Outdoor Air Method
+!-    ,                 !- Outdoor Air Flow Rate per Person {m3/s}
+!-    ,                        !- Outdoor Air Flow Rate per Zone Floor Area {m3/s-m2}
+!-    ,                        !- Outdoor Air Flow Rate per Zone {m3/s}
+!-    ,                        !- Design Specification Outdoor Air Object Name
+!-    None,                    !- Demand Controlled Ventilation Type
+!-    NoEconomizer,            !- Outdoor Air Economizer Type
+!-    None,                    !- Heat Recovery Type
+!-    0.7,                     !- Sensible Heat Recovery Effectiveness {dimensionless}
+!-    0.65;                    !- Latent Heat Recovery Effectiveness {dimensionless}
+
+HVACTemplate:Zone:PTAC,
+    Thermal Zone 1,          !- Zone Name
+    gc temperature sp,       !- Template Thermostat Name
+    autosize,                !- Cooling Supply Air Flow Rate {m3/s}
+    autosize,                !- Heating Supply Air Flow Rate {m3/s}
+    ,                        !- No Load Supply Air Flow Rate {m3/s}
+    ,                        !- Zone Heating Sizing Factor
+    ,                        !- Zone Cooling Sizing Factor
+    DetailedSpecification,   !- Outdoor Air Method
+    ,                        !- Outdoor Air Flow Rate per Person {m3/s}
+    ,                        !- Outdoor Air Flow Rate per Zone Floor Area {m3/s-m2}
+    0,                       !- Outdoor Air Flow Rate per Zone {m3/s}
+    ,                        !- System Availability Schedule Name
+    ,                        !- Supply Fan Operating Mode Schedule Name
+    DrawThrough,             !- Supply Fan Placement
+    0.7,                     !- Supply Fan Total Efficiency
+    75,                      !- Supply Fan Delta Pressure {Pa}
+    0.9,                     !- Supply Fan Motor Efficiency
+    SingleSpeedDX,           !- Cooling Coil Type
+    ,                        !- Cooling Coil Availability Schedule Name
+    autosize,                !- Cooling Coil Gross Rated Total Capacity {W}
+    autosize,                !- Cooling Coil Gross Rated Sensible Heat Ratio
+    3,                       !- Cooling Coil Gross Rated Cooling COP {W/W}
+    Electric,                !- Heating Coil Type
+    ,                        !- Heating Coil Availability Schedule Name
+    2000,                    !- Heating Coil Capacity {W}
+    0.8,                     !- Gas Heating Coil Efficiency
+    ,                        !- Gas Heating Coil Parasitic Electric Load {W}
+    ,                        !- Dedicated Outdoor Air System Name
+    SupplyAirTemperature,    !- Zone Cooling Design Supply Air Temperature Input Method
+    14,                      !- Zone Cooling Design Supply Air Temperature {C}
+    11.11,                   !- Zone Cooling Design Supply Air Temperature Difference {deltaC}
+    SupplyAirTemperature,    !- Zone Heating Design Supply Air Temperature Input Method
+    50,                      !- Zone Heating Design Supply Air Temperature {C}
+    30,                      !- Zone Heating Design Supply Air Temperature Difference {deltaC}
+    dsoa,                    !- Design Specification Outdoor Air Object Name
+    ,                        !- Design Specification Zone Air Distribution Object Name
+    None,                    !- Baseboard Heating Type
+    ,                        !- Baseboard Heating Availability Schedule Name
+    autosize,                !- Baseboard Heating Capacity {W}
+    None;                    !- Capacity Control Method
 
 
 !-   ===========  ALL OBJECTS IN CLASS: DESIGNSPECIFICATION:OUTDOORAIR ===========
