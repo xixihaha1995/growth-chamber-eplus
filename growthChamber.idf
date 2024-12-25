@@ -180,7 +180,7 @@ Schedule:Compact,
     UNTIL: 12:00,            !- Field 3
     0,                       !- Field 4
     Until: 24:00,            !- Field 5
-    1;                     !- Field 6
+    1;                       !- Field 6
 
 Schedule:Compact,
     on16off8,                !- Name
@@ -604,7 +604,7 @@ BuildingSurface:Detailed,
     UL Class 1 Foam Insulation,  !- Construction Name
     Thermal Zone 1,          !- Zone Name
     Space 101,               !- Space Name
-    Adiabatic,               !- Outside Boundary Condition
+    Outdoors,                !- Outside Boundary Condition
     ,                        !- Outside Boundary Condition Object
     NoSun,                   !- Sun Exposure
     NoWind,                  !- Wind Exposure
@@ -654,7 +654,7 @@ BuildingSurface:Detailed,
     UL Class 1 Foam Insulation,  !- Construction Name
     Thermal Zone 1,          !- Zone Name
     Space 101,               !- Space Name
-    Adiabatic,               !- Outside Boundary Condition
+    Outdoors,                !- Outside Boundary Condition
     ,                        !- Outside Boundary Condition Object
     NoSun,                   !- Sun Exposure
     NoWind,                  !- Wind Exposure
@@ -679,7 +679,7 @@ BuildingSurface:Detailed,
     UL Class 1 Foam Insulation,  !- Construction Name
     Thermal Zone 1,          !- Zone Name
     Space 101,               !- Space Name
-    Adiabatic,               !- Outside Boundary Condition
+    Outdoors,                !- Outside Boundary Condition
     ,                        !- Outside Boundary Condition Object
     NoSun,                   !- Sun Exposure
     NoWind,                  !- Wind Exposure
@@ -704,7 +704,7 @@ BuildingSurface:Detailed,
     UL Class 1 Foam Insulation,  !- Construction Name
     Thermal Zone 1,          !- Zone Name
     Space 101,               !- Space Name
-    Adiabatic,               !- Outside Boundary Condition
+    Outdoors,                !- Outside Boundary Condition
     ,                        !- Outside Boundary Condition Object
     NoSun,                   !- Sun Exposure
     NoWind,                  !- Wind Exposure
@@ -729,7 +729,7 @@ BuildingSurface:Detailed,
     UL Class 1 Foam Insulation,  !- Construction Name
     Thermal Zone 1,          !- Zone Name
     Space 101,               !- Space Name
-    Adiabatic,               !- Outside Boundary Condition
+    Outdoors,                !- Outside Boundary Condition
     ,                        !- Outside Boundary Condition Object
     NoSun,                   !- Sun Exposure
     NoWind,                  !- Wind Exposure
@@ -767,31 +767,32 @@ Lights,
 Lights,
     4 sets of living walls led lights,  !- Name
     Thermal Zone 1,          !- Zone or ZoneList or Space or SpaceList Name
-    on12off12,     !- Schedule Name
+    Always On Discrete,               !- Schedule Name
     LightingLevel,           !- Design Level Calculation Method
-    1040,                    !- Lighting Level {W}
+    2407,                       !- Lighting Level {W}
     ,                        !- Watts per Floor Area {W/m2}
     ,                        !- Watts per Person {W/person}
     ,                        !- Return Air Fraction
     ,                        !- Fraction Radiant
     ,                        !- Fraction Visible
     ;                        !- Fraction Replaceable
+
+
 !-   ===========  ALL OBJECTS IN CLASS: INDOORLIVINGWALL ===========
 
 IndoorLivingWall,
-    4 sets of living wall no lights,!- Name
+    4 sets of living wall no lights,  !- Name
     Floor,                   !- Surface Name
-    on12off12,      !- Schedule Name
+    Always On Discrete,               !- Schedule Name
     Penman-Monteith,         !- Evapotranspiration Calculation Method
     LED,                     !- Lighting Method
-    Always On Discrete,               !- LED Intensity Schedule Name
+    Always On Discrete,      !- LED Intensity Schedule Name
     DaylightControl1-1,      !- Daylighting Control Name
     ,                        !- LED-Daylight Targeted Lighting Intensity Schedule Name
     45,                      !- Total Leaf Area {m2}
-    432,                     !- LED Nominal Intensity {umol/m2-s}
-    0,                     !- LED Nominal Power {W}
+    1000,                       !- LED Nominal Intensity {umol/m2-s}
+    0,                       !- LED Nominal Power {W}
     0.6;                     !- Radiant Fraction of LED Lights
-
 
 
 !-   ===========  ALL OBJECTS IN CLASS: DAYLIGHTING:CONTROLS ===========
@@ -820,7 +821,7 @@ Daylighting:Controls,
 Daylighting:ReferencePoint,
     ReferenceSouthPartition, !- Name
     Thermal Zone 1,          !- Zone or Space Name
-    -1,                       !- X-Coordinate of Reference Point {m}
+    -1,                      !- X-Coordinate of Reference Point {m}
     1,                       !- Y-Coordinate of Reference Point {m}
     1;                       !- Z-Coordinate of Reference Point {m}
 
@@ -836,38 +837,6 @@ HVACTemplate:Thermostat,
 
 
 !-   ===========  ALL OBJECTS IN CLASS: HVACTEMPLATE:ZONE:PTAC ===========
-
-!-HVACTemplate:Zone:IdealLoadsAirSystem,
-!-    Thermal Zone 1,          !- Zone Name
-!-    gc temperature sp,       !- Template Thermostat Name
-!-    ,                        !- System Availability Schedule Name
-!-    50,                      !- Maximum Heating Supply Air Temperature {C}
-!-    13,                      !- Minimum Cooling Supply Air Temperature {C}
-!-    0.0156,                  !- Maximum Heating Supply Air Humidity Ratio {kgWater/kgDryAir}
-!-    0.0077,                  !- Minimum Cooling Supply Air Humidity Ratio {kgWater/kgDryAir}
-!-    NoLimit,                 !- Heating Limit
-!-    ,                        !- Maximum Heating Air Flow Rate {m3/s}
-!-    ,                        !- Maximum Sensible Heating Capacity {W}
-!-    NoLimit,                 !- Cooling Limit
-!-    ,                        !- Maximum Cooling Air Flow Rate {m3/s}
-!-    ,                        !- Maximum Total Cooling Capacity {W}
-!-    ,                        !- Heating Availability Schedule Name
-!-    ,                        !- Cooling Availability Schedule Name
-!-    Humidistat,              !- Dehumidification Control Type
-!-    0.7,                     !- Cooling Sensible Heat Ratio {dimensionless}
-!-    78,                      !- Dehumidification Setpoint {percent}
-!-    Humidistat,              !- Humidification Control Type
-!-    72,                      !- Humidification Setpoint {percent}
-!-    None,                    !- Outdoor Air Method
-!-    ,                 !- Outdoor Air Flow Rate per Person {m3/s}
-!-    ,                        !- Outdoor Air Flow Rate per Zone Floor Area {m3/s-m2}
-!-    ,                        !- Outdoor Air Flow Rate per Zone {m3/s}
-!-    ,                        !- Design Specification Outdoor Air Object Name
-!-    None,                    !- Demand Controlled Ventilation Type
-!-    NoEconomizer,            !- Outdoor Air Economizer Type
-!-    None,                    !- Heat Recovery Type
-!-    0.7,                     !- Sensible Heat Recovery Effectiveness {dimensionless}
-!-    0.65;                    !- Latent Heat Recovery Effectiveness {dimensionless}
 
 HVACTemplate:Zone:PTAC,
     Thermal Zone 1,          !- Zone Name
@@ -894,7 +863,7 @@ HVACTemplate:Zone:PTAC,
     3,                       !- Cooling Coil Gross Rated Cooling COP {W/W}
     Electric,                !- Heating Coil Type
     ,                        !- Heating Coil Availability Schedule Name
-    2000,                    !- Heating Coil Capacity {W}
+    4000,                    !- Heating Coil Capacity {W}
     0.8,                     !- Gas Heating Coil Efficiency
     ,                        !- Gas Heating Coil Parasitic Electric Load {W}
     ,                        !- Dedicated Outdoor Air System Name
@@ -919,7 +888,7 @@ DesignSpecification:OutdoorAir,
     Flow/Zone,               !- Outdoor Air Method
     ,                        !- Outdoor Air Flow per Person {m3/s-person}
     ,                        !- Outdoor Air Flow per Zone Floor Area {m3/s-m2}
-    0;                       !- Outdoor Air Flow per Zone {m3/s}
+    0.047;                   !- Outdoor Air Flow per Zone {m3/s}
 
 
 !-   ===========  ALL OBJECTS IN CLASS: SIZING:PARAMETERS ===========
@@ -978,54 +947,34 @@ Output:Variable,
 
 Output:Variable,
     *,                       !- Key Value
-    Lights Electricity Rate, !- Variable Name
-    TIMESTEP;                !- Reporting Frequency
-
-Output:Variable,
-    *,                       !- Key Value
     Zone Total Internal Radiant Heating Energy,  !- Variable Name
     Timestep;                !- Reporting Frequency
 
-Output:Variable,
-    *,                       !- Key Value
-    Zone Total Internal Visible Radiation Heating Energy,  !- Variable Name
-    Timestep;                !- Reporting Frequency
-
-Output:Variable,
-    *,                       !- Key Value
-    Zone Packaged Terminal Air Conditioner Total Heating Rate,  !- Variable Name
-    Timestep;                !- Reporting Frequency
-
-Output:Variable,
-    *,                       !- Key Value
-    Zone Packaged Terminal Air Conditioner Total Cooling Rate,  !- Variable Name
-    Timestep;                !- Reporting Frequency
-
-Output:Variable,
-    *,                       !- Key Value
-    Zone Packaged Terminal Air Conditioner Sensible Heating Rate,  !- Variable Name
-    Timestep;                !- Reporting Frequency
-
-Output:Variable,
-    *,                       !- Key Value
-    Zone Packaged Terminal Air Conditioner Sensible Cooling Rate,  !- Variable Name
-    Timestep;                !- Reporting Frequency
-
-Output:Variable,
-    *,                       !- Key Value
-    Zone Packaged Terminal Air Conditioner Latent Heating Rate,  !- Variable Name
-    Timestep;                !- Reporting Frequency
-
-Output:Variable,
-    *,                       !- Key Value
-    Zone Packaged Terminal Air Conditioner Latent Cooling Rate,  !- Variable Name
-    Timestep;                !- Reporting Frequency
 
 Output:Variable,
     *,                       !- Key Value
     Zone Packaged Terminal Air Conditioner Electricity Rate,  !- Variable Name
     Timestep;                !- Reporting Frequency
 
+Output:Variable,
+    *,                       !- Key Value
+    Lights Electricity Rate, !- Variable Name
+    TIMESTEP;                !- Reporting Frequency
+
+Output:Variable,
+    *,                       !- Key Value
+    Facility Total HVAC Electricity Demand Rate, !- Variable Name
+    TIMESTEP;                !- Reporting Frequency
+
+Output:Variable,
+    *,                       !- Key Value
+    Facility Total Building Electricity Demand Rate, !- Variable Name
+    TIMESTEP;                !- Reporting Frequency
+
+Output:Variable,
+    *,                       !- Key Value
+    Facility Total Electricity Demand Rate, !- Variable Name
+    TIMESTEP;                !- Reporting Frequency
 
 !-   ===========  ALL OBJECTS IN CLASS: OUTPUT:SQLITE ===========
 

@@ -52,15 +52,16 @@
             - Third tier: 1040 W
         - LivingWall: LED = 0, PPFD works well the LED intensity schedule (ET process)
         - Normal lights = 780 W (with on12off12)
-3. debugging
-    - Questions:
-    - Humidity control debugging:
-        - Dehumidifier:Desiccant:NoFans
-        - Humidifier:Steam:Electric
-    - Convert PPFD to LED interior lighting power consumption.
+3. comparison 
+    - 432 PPFD = 1040 W
+    - 
+    - Zone Packaged Terminal Air Conditioner Electricity Rate
+    - Facility Total HVAC Electricity Demand Rate
+    - Facility Total Building Electricity Demand Rate
+    - Facility Total Electricity Demand Rate
 
 
-3. copy and paste
+4. copy and paste
 
 Lights,
     led lights,              !- Name
