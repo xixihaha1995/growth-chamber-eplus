@@ -15,7 +15,7 @@ Version,
 
 SimulationControl,
     Yes,                     !- Do Zone Sizing Calculation
-    No,                      !- Do System Sizing Calculation
+    Yes,                     !- Do System Sizing Calculation
     No,                      !- Do Plant Sizing Calculation
     No,                      !- Run Simulation for Sizing Periods
     Yes,                     !- Run Simulation for Weather File Run Periods
@@ -39,7 +39,7 @@ Building,
 !-   ===========  ALL OBJECTS IN CLASS: TIMESTEP ===========
 
 Timestep,
-    6;                       !- Number of Timesteps per Hour
+    2;                       !- Number of Timesteps per Hour
 
 
 !-   ===========  ALL OBJECTS IN CLASS: SITE:LOCATION ===========
@@ -604,11 +604,11 @@ BuildingSurface:Detailed,
     UL Class 1 Foam Insulation,  !- Construction Name
     Thermal Zone 1,          !- Zone Name
     Space 101,               !- Space Name
-    Outdoors,                !- Outside Boundary Condition
+    Adiabatic,               !- Outside Boundary Condition
     ,                        !- Outside Boundary Condition Object
     NoSun,                   !- Sun Exposure
     NoWind,                  !- Wind Exposure
-    ,                        !- View Factor to Ground
+    0,                       !- View Factor to Ground
     ,                        !- Number of Vertices
     0,                       !- Vertex 1 X-coordinate {m}
     0,                       !- Vertex 1 Y-coordinate {m}
@@ -633,7 +633,7 @@ BuildingSurface:Detailed,
     ,                        !- Outside Boundary Condition Object
     NoSun,                   !- Sun Exposure
     NoWind,                  !- Wind Exposure
-    ,                        !- View Factor to Ground
+    0,                       !- View Factor to Ground
     ,                        !- Number of Vertices
     0,                       !- Vertex 1 X-coordinate {m}
     3.5306,                  !- Vertex 1 Y-coordinate {m}
@@ -654,11 +654,11 @@ BuildingSurface:Detailed,
     UL Class 1 Foam Insulation,  !- Construction Name
     Thermal Zone 1,          !- Zone Name
     Space 101,               !- Space Name
-    Outdoors,                !- Outside Boundary Condition
+    Adiabatic,               !- Outside Boundary Condition
     ,                        !- Outside Boundary Condition Object
     NoSun,                   !- Sun Exposure
     NoWind,                  !- Wind Exposure
-    ,                        !- View Factor to Ground
+    0,                       !- View Factor to Ground
     ,                        !- Number of Vertices
     -3.2385,                 !- Vertex 1 X-coordinate {m}
     0,                       !- Vertex 1 Y-coordinate {m}
@@ -679,11 +679,11 @@ BuildingSurface:Detailed,
     UL Class 1 Foam Insulation,  !- Construction Name
     Thermal Zone 1,          !- Zone Name
     Space 101,               !- Space Name
-    Outdoors,                !- Outside Boundary Condition
+    Adiabatic,               !- Outside Boundary Condition
     ,                        !- Outside Boundary Condition Object
     NoSun,                   !- Sun Exposure
     NoWind,                  !- Wind Exposure
-    ,                        !- View Factor to Ground
+    0,                       !- View Factor to Ground
     ,                        !- Number of Vertices
     -3.2385,                 !- Vertex 1 X-coordinate {m}
     3.5306,                  !- Vertex 1 Y-coordinate {m}
@@ -704,11 +704,11 @@ BuildingSurface:Detailed,
     UL Class 1 Foam Insulation,  !- Construction Name
     Thermal Zone 1,          !- Zone Name
     Space 101,               !- Space Name
-    Outdoors,                !- Outside Boundary Condition
+    Adiabatic,               !- Outside Boundary Condition
     ,                        !- Outside Boundary Condition Object
     NoSun,                   !- Sun Exposure
     NoWind,                  !- Wind Exposure
-    ,                        !- View Factor to Ground
+    0,                       !- View Factor to Ground
     ,                        !- Number of Vertices
     0,                       !- Vertex 1 X-coordinate {m}
     3.5306,                  !- Vertex 1 Y-coordinate {m}
@@ -729,11 +729,11 @@ BuildingSurface:Detailed,
     UL Class 1 Foam Insulation,  !- Construction Name
     Thermal Zone 1,          !- Zone Name
     Space 101,               !- Space Name
-    Outdoors,                !- Outside Boundary Condition
+    Adiabatic,               !- Outside Boundary Condition
     ,                        !- Outside Boundary Condition Object
     NoSun,                   !- Sun Exposure
     NoWind,                  !- Wind Exposure
-    ,                        !- View Factor to Ground
+    0,                       !- View Factor to Ground
     ,                        !- Number of Vertices
     0,                       !- Vertex 1 X-coordinate {m}
     0,                       !- Vertex 1 Y-coordinate {m}
@@ -767,9 +767,9 @@ Lights,
 Lights,
     4 sets of living walls led lights,  !- Name
     Thermal Zone 1,          !- Zone or ZoneList or Space or SpaceList Name
-    Always On Discrete,               !- Schedule Name
+    Always On Discrete,      !- Schedule Name
     LightingLevel,           !- Design Level Calculation Method
-    2407,                       !- Lighting Level {W}
+    2407,                     !- Lighting Level {W}
     ,                        !- Watts per Floor Area {W/m2}
     ,                        !- Watts per Person {W/person}
     ,                        !- Return Air Fraction
@@ -783,14 +783,14 @@ Lights,
 IndoorLivingWall,
     4 sets of living wall no lights,  !- Name
     Floor,                   !- Surface Name
-    Always On Discrete,               !- Schedule Name
+    Always On Discrete,      !- Schedule Name
     Penman-Monteith,         !- Evapotranspiration Calculation Method
     LED,                     !- Lighting Method
     Always On Discrete,      !- LED Intensity Schedule Name
     DaylightControl1-1,      !- Daylighting Control Name
     ,                        !- LED-Daylight Targeted Lighting Intensity Schedule Name
     45,                      !- Total Leaf Area {m2}
-    1000,                       !- LED Nominal Intensity {umol/m2-s}
+    1000,                     !- LED Nominal Intensity {umol/m2-s}
     0,                       !- LED Nominal Power {W}
     0.6;                     !- Radiant Fraction of LED Lights
 
@@ -950,7 +950,6 @@ Output:Variable,
     Zone Total Internal Radiant Heating Energy,  !- Variable Name
     Timestep;                !- Reporting Frequency
 
-
 Output:Variable,
     *,                       !- Key Value
     Zone Packaged Terminal Air Conditioner Electricity Rate,  !- Variable Name
@@ -963,18 +962,19 @@ Output:Variable,
 
 Output:Variable,
     *,                       !- Key Value
-    Facility Total HVAC Electricity Demand Rate, !- Variable Name
+    Facility Total HVAC Electricity Demand Rate,  !- Variable Name
     TIMESTEP;                !- Reporting Frequency
 
 Output:Variable,
     *,                       !- Key Value
-    Facility Total Building Electricity Demand Rate, !- Variable Name
+    Facility Total Building Electricity Demand Rate,  !- Variable Name
     TIMESTEP;                !- Reporting Frequency
 
 Output:Variable,
     *,                       !- Key Value
-    Facility Total Electricity Demand Rate, !- Variable Name
+    Facility Total Electricity Demand Rate,  !- Variable Name
     TIMESTEP;                !- Reporting Frequency
+
 
 !-   ===========  ALL OBJECTS IN CLASS: OUTPUT:SQLITE ===========
 

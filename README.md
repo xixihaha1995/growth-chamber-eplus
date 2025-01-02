@@ -77,17 +77,17 @@ Lights,
     ;                        !- Fraction Replaceable
 
 IndoorLivingWall,
-    gc living wall,          !- Name
+    4 sets of living wall no lights,  !- Name
     Floor,                   !- Surface Name
-    Always On Discrete,      !- Schedule Name
+    Always On Discrete,               !- Schedule Name
     Penman-Monteith,         !- Evapotranspiration Calculation Method
     LED,                     !- Lighting Method
-    Always On Continuous,    !- LED Intensity Schedule Name
+    Always On Discrete,      !- LED Intensity Schedule Name
     DaylightControl1-1,      !- Daylighting Control Name
     ,                        !- LED-Daylight Targeted Lighting Intensity Schedule Name
-    200,                     !- Total Leaf Area {m2}
-    65,                      !- LED Nominal Intensity {umol/m2-s}
-    1280,                    !- LED Nominal Power {W}
+    45,                      !- Total Leaf Area {m2}
+    1000,                       !- LED Nominal Intensity {umol/m2-s}
+    0,                       !- LED Nominal Power {W}
     0.6;                     !- Radiant Fraction of LED Lights
 
 
@@ -160,7 +160,7 @@ HVACTemplate:Zone:IdealLoadsAirSystem,
     Humidistat,              !- Humidification Control Type
     72,                      !- Humidification Setpoint {percent}
     None,                    !- Outdoor Air Method
-    ,                 !- Outdoor Air Flow Rate per Person {m3/s}
+    ,                        !- Outdoor Air Flow Rate per Person {m3/s}
     ,                        !- Outdoor Air Flow Rate per Zone Floor Area {m3/s-m2}
     ,                        !- Outdoor Air Flow Rate per Zone {m3/s}
     ,                        !- Design Specification Outdoor Air Object Name
@@ -169,6 +169,7 @@ HVACTemplate:Zone:IdealLoadsAirSystem,
     None,                    !- Heat Recovery Type
     0.7,                     !- Sensible Heat Recovery Effectiveness {dimensionless}
     0.65;                    !- Latent Heat Recovery Effectiveness {dimensionless}
+
 
 
 HVACTemplate:Zone:PTAC,
@@ -196,7 +197,7 @@ HVACTemplate:Zone:PTAC,
     3,                       !- Cooling Coil Gross Rated Cooling COP {W/W}
     Electric,                !- Heating Coil Type
     ,                        !- Heating Coil Availability Schedule Name
-    2000,                    !- Heating Coil Capacity {W}
+    4000,                    !- Heating Coil Capacity {W}
     0.8,                     !- Gas Heating Coil Efficiency
     ,                        !- Gas Heating Coil Parasitic Electric Load {W}
     ,                        !- Dedicated Outdoor Air System Name
